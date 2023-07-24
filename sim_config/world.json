@@ -14,7 +14,18 @@
                 0,
                 0.0
             ],
-            "flight_time": 60
+            "flight_time": 60,
+            "payload": [
+                {
+                  "model_type": "hd_camera",
+                  "model_name": "front_camera"
+                },
+                {
+                    "model_type": "planar_lidar_fov",
+                    "model_name": "lidar",
+                    "xyz": [0.1, 0, 0]
+                  }
+            ]
         }
     ]
 }
