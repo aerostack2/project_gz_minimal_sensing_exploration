@@ -6,7 +6,7 @@ if [ $# -eq 0 ]; then
 fi
 
 # Make a tmux list of sessions to be killed
-tmux_session_list=("keyboard_teleop" "rosbag" "mocap")
+tmux_session_list=("keyboard_teleop" "rosbag" "mocap" "gazebo")
 
 # For each drone namespace, add to the list
 for ns in "$@"; do
@@ -32,6 +32,12 @@ for session in "${tmux_session_list[@]}"; do
     done
   fi
 done
+
+# # Kill gazebo
+# pkill -9 -f "gazebo" < /dev/null
+
+# # Kill gazebo bridges
+# pkill -9 -f "ros_gz_bridge"
 
 # Kill all tmux sessions from the list except for the current one
 for session in "${tmux_session_list[@]}"; do
