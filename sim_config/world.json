@@ -27,5 +27,31 @@
                   }
             ]
         }
+    ],
+    "objects": [
+        {    
+            "model_name": "pole0",
+            "model_type": "pole",
+            "xyz": [5, 5, 0],
+            "tf_broadcaster": false
+        },
+        {    
+            "model_name": "pole1",
+            "model_type": "pole",
+            "xyz": [3, 3, 0],
+            "tf_broadcaster": false
+        },
+        {    
+            "model_name": "pole2",
+            "model_type": "pole",
+            "xyz": [3, -4, 0],
+            "tf_broadcaster": false
+        },
+        {    
+            "model_name": "pole3",
+            "model_type": "pole",
+            "xyz": [-5, -4, 0],
+            "tf_broadcaster": false
+        }
     ]
 }
