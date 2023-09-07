@@ -39,6 +39,9 @@ source utils/tools.bash
 # Shift optional args
 shift $((OPTIND -1))
 
+## OVERIDE MODEL PATH TO GET FIRST MODELS FROM PROJECT (planar_lidar)
+export IGN_GAZEBO_RESOURCE_PATH=$PWD/models:$IGN_GAZEBO_RESOURCE_PATH
+
 ## DEFAULTS
 record_rosbag=${record_rosbag:="false"}
 launch_keyboard_teleop=${launch_keyboard_teleop:="false"}

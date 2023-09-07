@@ -6,7 +6,7 @@
             "model_name": "drone0",
             "xyz": [
                 1.0,
-                1.0,
+                3.0,
                 0.3
             ],
             "rpy": [
@@ -21,7 +21,7 @@
                   "model_name": "front_camera"
                 },
                 {
-                    "model_type": "planar_lidar_fov",
+                    "model_type": "planar_lidar",
                     "model_name": "lidar",
                     "xyz": [0.1, 0, 0]
                   }
