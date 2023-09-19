@@ -29,6 +29,7 @@ windows:
         - ros2 launch as2_ign_gazebo_assets launch_simulation.py
           use_sim_time:=true
           simulation_config_file:=<%= simulation_config %>
+        - rviz2 -d rviz.rviz
   - alphanumeric_viewer:
       layout: tiled
       panes:
@@ -81,8 +82,7 @@ windows:
             - ros2 launch as2_path_planning map_server.launch.py
                 namespace:=<%= drone_namespace %>
                 use_sim_time:=true
-  - mission:
-      layout:
-      panes:
-        - rviz2 -d rviz.rviz
-        -
+            - ros2 launch as2_path_planning path_planner.launch.py
+                namespace:=<%= drone_namespace %>
+                use_sim_time:=true
+            - 
