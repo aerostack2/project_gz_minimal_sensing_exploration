@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <sdf version="1.9">
     <model name="pole">
-        <link name="pole">
+        <link name="pole_link">
 
             <visual name='visual'>
                 <geometry>
@@ -37,5 +37,10 @@
             </collision>
         </link>
         <frame name="mount_point"/>
+
+        <joint name="world_to_base_link=" type="fixed">
+            <parent>world</parent>
+            <child>pole_link</child>
+        </joint>
     </model>
 </sdf>
