@@ -30,7 +30,11 @@ windows:
         - ros2 launch as2_ign_gazebo_assets launch_simulation.py
           use_sim_time:=true
           simulation_config_file:=<%= simulation_config %>
-        - rviz2 -d rviz.rviz
+        - ros2 launch as2_viz as2_viz.launch.py
+            namespace:=<%= drone_namespace %>
+            use_sim_time:=true
+            rviz_config:=rviz.rviz
+            paint_markers:=false
   - alphanumeric_viewer:
       layout: tiled
       panes:
