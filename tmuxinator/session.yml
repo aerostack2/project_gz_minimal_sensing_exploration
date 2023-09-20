@@ -22,6 +22,7 @@ end
 %>
 attach: false
 root: ./
+pre_window: humble; clear
 windows:
   - gazebo:
       layout:
@@ -79,10 +80,15 @@ windows:
             - ros2 launch as2_path_planning laserscan_to_occupancy_grid.launch.py
                 namespace:=<%= drone_namespace %>
                 use_sim_time:=true
+                map_resolution:=0.25
+                map_width:=300
+                map_height:=300
             - ros2 launch as2_path_planning map_server.launch.py
                 namespace:=<%= drone_namespace %>
                 use_sim_time:=true
             - ros2 launch as2_path_planning path_planner.launch.py
                 namespace:=<%= drone_namespace %>
                 use_sim_time:=true
+                use_path_optimizer:=false
+                safety_distance:=0.3
             - 
