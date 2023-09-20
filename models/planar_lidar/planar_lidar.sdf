@@ -29,7 +29,7 @@
                 <lidar>
                     <scan>
                         <horizontal>
-                            <samples>720</samples>
+                            <samples>640</samples>
                             <resolution>1</resolution>
                             <!-- -60 to 60 degrees -->
                             <min_angle>-1,0472</min_angle>
