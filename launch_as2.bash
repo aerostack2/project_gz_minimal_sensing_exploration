@@ -2,14 +2,18 @@
 
 usage() {
     echo "  options:"
+    echo "      -m: use multi ranger sensor"
     echo "      -r: record rosbag"
     echo "      -t: launch keyboard teleoperation"
     echo "      -n: drone namespace, default is drone0"
 }
 
 # Arg parser
-while getopts "rtn" opt; do
+while getopts "mrtn" opt; do
   case ${opt} in
+    m )
+      modifier="_multi_ranger"
+      ;;
     r )
       record_rosbag="true"
       ;;
@@ -48,11 +52,13 @@ launch_keyboard_teleop=${launch_keyboard_teleop:="false"}
 drone_namespace=${drone_namespace:="drone0"}
 
 estimator_plugin="ground_truth"
-simulation_config="sim_config/world.json" 
+simulation_config="sim_config/world${modifier}.json"
+rviz_config="sim_config/rviz${modifier}.rviz"
 
 tmuxinator start -n ${drone_namespace} -p tmuxinator/session.yml \
       drone_namespace=${drone_namespace} \
-      simulation_config=${simulation_config} &
+      simulation_config=${simulation_config} \
+      rviz_config=${rviz_config} &
 wait
 
 if [[ ${record_rosbag} == "true" ]]; then

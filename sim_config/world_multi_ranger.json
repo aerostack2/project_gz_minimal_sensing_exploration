@@ -1,0 +1,57 @@
+{
+    "world_name": "empty",
+    "drones": [
+        {
+            "model_type": "quadrotor_base",
+            "model_name": "drone0",
+            "xyz": [
+                0.0,
+                3.0,
+                0.3
+            ],
+            "rpy": [
+                0,
+                0,
+                0.0
+            ],
+            "flight_time": 60,
+            "payload": [
+                {
+                  "model_type": "hd_camera",
+                  "model_name": "front_camera"
+                },
+                {
+                    "model_type": "multi_ranger",
+                    "model_name": "lidar",
+                    "xyz": [0, 0, 0]
+                  }
+            ]
+        }
+    ],
+    "objects": [
+        {    
+            "model_name": "pole0",
+            "model_type": "pole",
+            "xyz": [5, 5, 0],
+            "tf_broadcaster": false
+        },
+        {    
+            "model_name": "pole1",
+            "model_type": "pole",
+            "xyz": [3, 3, 0],
+            "tf_broadcaster": false
+        },
+        {    
+            "model_name": "pole2",
+            "model_type": "pole",
+            "xyz": [3, -4, 0],
+            "tf_broadcaster": false
+        },
+        {    
+            "model_name": "pole3",
+            "model_type": "pole",
+            "xyz": [-5, -4, 0],
+            "tf_broadcaster": false
+        }
+    ]
+}

@@ -2,6 +2,7 @@
 # Input parameters
 drone_namespace     = @settings["drone_namespace"]
 simulation_config   = @settings["simulation_config"]
+rviz_config         = @settings["rviz_config"]
 
 # Other parameters
 use_sim_time                = true
@@ -33,7 +34,7 @@ windows:
         - ros2 launch as2_viz as2_viz.launch.py
             namespace:=<%= drone_namespace %>
             use_sim_time:=true
-            rviz_config:=rviz.rviz
+            rviz_config:=<%= rviz_config %>
             paint_markers:=false
   - alphanumeric_viewer:
       layout: tiled
