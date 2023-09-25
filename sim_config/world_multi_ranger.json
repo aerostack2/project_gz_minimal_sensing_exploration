@@ -5,8 +5,8 @@
             "model_type": "quadrotor_base",
             "model_name": "drone0",
             "xyz": [
-                0.0,
-                3.0,
+                0.15,
+                2.65,
                 0.3
             ],
             "rpy": [
