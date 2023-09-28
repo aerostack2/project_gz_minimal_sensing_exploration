@@ -1,5 +1,5 @@
 {
-    "world_name": "{{ world_name }}",
+    "world_name": "{{ world_name | default("empty") }}",
     "drones": [
             {% for drone in drones %}
             {

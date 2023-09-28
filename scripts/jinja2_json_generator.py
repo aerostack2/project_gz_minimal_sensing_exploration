@@ -22,17 +22,19 @@ visualizing = False
 def distance(point1, point2):
     return math.sqrt((point1[0] - point2[0]) ** 2 + (point1[1] - point2[1]) ** 2)
 
+
 def randomize_drone_pose():
     x = round(random.uniform(-5, 5), 2)
     y = round(random.uniform(-5, 5), 2)
     yaw = round(random.uniform(0, 2 * math.pi), 2)
-    
+
     drone = [{
-            "xyz": [x, y, 0],
-            "rpy": [0, 0, yaw],
-        }]
-    
+        "xyz": [x, y, 0],
+        "rpy": [0, 0, yaw],
+    }]
+
     return drone, x, y
+
 
 def generate_objects(num_objects, drone_coords, min_distance):
     objects = []
@@ -43,9 +45,10 @@ def generate_objects(num_objects, drone_coords, min_distance):
         while True:
             x = round(random.uniform(-5, 5), 2)
             y = round(random.uniform(-5, 5), 2)
-            
-            too_close = any(distance((x, y), existing_point) < min_distance for existing_point in generated_points)
-            
+
+            too_close = any(distance((x, y), existing_point) <
+                            min_distance for existing_point in generated_points)
+
             if not too_close:
                 generated_points.append((x, y))
                 break
@@ -56,11 +59,9 @@ def generate_objects(num_objects, drone_coords, min_distance):
         objects.append(object)
         x_ls.append(x)
         y_ls.append(y)
-    
+
     return objects, x_ls, y_ls
 # ----------------------------------------------------------------------------------------
-
-
 
 
 # ----------------------------------------------------------------------------------------
@@ -78,7 +79,7 @@ for i in range(num_world):
 
     coordinates = list(zip(xpoints, ypoints))
 
-    world_data = {"world_name": f"world_{i + 1}", "objects": generated_objects, "drones": random_drone_pose}
+    world_data = {"objects": generated_objects, "drones": random_drone_pose}
 
     world_output = world_template.render(world_data)
 
@@ -103,13 +104,13 @@ for i in range(num_world):
         plt.title(f"World {i+1}")
         plt.grid()
         plt.show()
-        
+
     json_file_path = f"../assets/worlds/world_{i + 1}.json"
 
     # Write the JSON string to the file
     with open(json_file_path, "w") as json_file:
         json_file.write(world_output)
-    
+
     print(f"World {i+1} has been saved")
-    
+
 # ----------------------------------------------------------------------------------------
