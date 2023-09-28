@@ -1,0 +1,37 @@
+{
+    "world_name": "empty",
+    "drones": [
+            {% for drone in drones %}
+            {
+            "model_type": "quadrotor_base",
+            "model_name": "drone0",
+            "xyz": {{ drone.xyz }},
+            "rpy": {{ drone.rpy }},
+            "flight_time": 60,
+            "payload": [
+                {
+                  "model_type": "hd_camera",
+                  "model_name": "front_camera"
+                },
+                {
+                    "model_type": "planar_lidar",
+                    "model_name": "lidar",
+                    "xyz": [0.1, 0, 0]
+                  }
+            ]
+            }
+            {% if not loop.last %},{% endif %}
+            {% endfor %}
+    ],
+    "objects": [
+        {% for object in objects %}
+        {    
+        "model_name": "{{ object.model_name }}",
+        "model_type": "pole",
+        "xyz": {{ object.xyz }},
+        "tf_broadcaster": false
+        }
+        {% if not loop.last %},{% endif %}
+        {% endfor %}
+    ]
+}
