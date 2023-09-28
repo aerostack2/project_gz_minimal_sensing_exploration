@@ -65,7 +65,7 @@ def generate_objects(num_objects, drone_coords, min_distance):
 
 # ----------------------------------------------------------------------------------------
 #                                                              Main Code:
-environment = Environment(loader=FileSystemLoader("templates/"))
+environment = Environment(loader=FileSystemLoader("../assets/templates/"))
 
 world_template = environment.get_template("world.json.jinja")
 
@@ -78,18 +78,20 @@ for i in range(num_world):
 
     coordinates = list(zip(xpoints, ypoints))
 
-    world_data = {"objects": generated_objects, "drones": random_drone_pose}
+    world_data = {"world_name": f"world_{i + 1}", "objects": generated_objects, "drones": random_drone_pose}
 
     world_output = world_template.render(world_data)
 
     # print(world_output)
 
     if visualizing:
+        pprint.pprint(world_output)
+
         angles = np.linspace(0, 2 * np.pi, 100)
         x_coords_O = x_drone + r * np.cos(angles)
         y_coords_O = y_drone + r * np.sin(angles)
 
-        plt.figure(figsize=(6, 6))
+        # plt.figure(figsize=(6, 6))
         plt.plot(xpoints, ypoints, 'o')
         plt.plot(x_drone, y_drone, 'D:r')
         plt.plot(x_coords_O, y_coords_O, color='purple')
@@ -101,8 +103,8 @@ for i in range(num_world):
         plt.title(f"World {i+1}")
         plt.grid()
         plt.show()
-
-    json_file_path = f"worlds/world_{i + 1}.json"
+        
+    json_file_path = f"../assets/worlds/world_{i + 1}.json"
 
     # Write the JSON string to the file
     with open(json_file_path, "w") as json_file:
