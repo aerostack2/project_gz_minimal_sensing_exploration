@@ -1,0 +1,189 @@
+{
+    "world_name": "None1",
+    "drones": [
+            
+            {
+            "model_type": "quadrotor_base",
+            "model_name": "drone0",
+            "xyz": [-4.51, 4.04, 0],
+            "rpy": [0, 0, 0.35],
+            "flight_time": 60,
+            "payload": [
+                {
+                  "model_type": "hd_camera",
+                  "model_name": "front_camera"
+                },
+                {
+                    "model_type": "planar_lidar",
+                    "model_name": "lidar",
+                    "xyz": [0.1, 0, 0]
+                  }
+            ]
+            }
+            
+            
+    ],
+    "objects": [
+        
+        {    
+        "model_name": "pole1",
+        "model_type": "pole",
+        "xyz": [1.24, 4.83, 0],
+        "tf_broadcaster": false
+        }
+        ,
+        
+        {    
+        "model_name": "pole2",
+        "model_type": "pole",
+        "xyz": [1.89, -1.53, 0],
+        "tf_broadcaster": false
+        }
+        ,
+        
+        {    
+        "model_name": "pole3",
+        "model_type": "pole",
+        "xyz": [1.63, 4.15, 0],
+        "tf_broadcaster": false
+        }
+        ,
+        
+        {    
+        "model_name": "pole4",
+        "model_type": "pole",
+        "xyz": [-2.01, 2.13, 0],
+        "tf_broadcaster": false
+        }
+        ,
+        
+        {    
+        "model_name": "pole5",
+        "model_type": "pole",
+        "xyz": [2.49, -1.01, 0],
+        "tf_broadcaster": false
+        }
+        ,
+        
+        {    
+        "model_name": "pole6",
+        "model_type": "pole",
+        "xyz": [2.94, -2.03, 0],
+        "tf_broadcaster": false
+        }
+        ,
+        
+        {    
+        "model_name": "pole7",
+        "model_type": "pole",
+        "xyz": [0.6, 4.38, 0],
+        "tf_broadcaster": false
+        }
+        ,
+        
+        {    
+        "model_name": "pole8",
+        "model_type": "pole",
+        "xyz": [-3.3, 0.9, 0],
+        "tf_broadcaster": false
+        }
+        ,
+        
+        {    
+        "model_name": "pole9",
+        "model_type": "pole",
+        "xyz": [1.1, -4.15, 0],
+        "tf_broadcaster": false
+        }
+        ,
+        
+        {    
+        "model_name": "pole10",
+        "model_type": "pole",
+        "xyz": [-2.83, 1.36, 0],
+        "tf_broadcaster": false
+        }
+        ,
+        
+        {    
+        "model_name": "pole11",
+        "model_type": "pole",
+        "xyz": [3.19, -2.87, 0],
+        "tf_broadcaster": false
+        }
+        ,
+        
+        {    
+        "model_name": "pole12",
+        "model_type": "pole",
+        "xyz": [1.83, -4.8, 0],
+        "tf_broadcaster": false
+        }
+        ,
+        
+        {    
+        "model_name": "pole13",
+        "model_type": "pole",
+        "xyz": [0.36, 1.0, 0],
+        "tf_broadcaster": false
+        }
+        ,
+        
+        {    
+        "model_name": "pole14",
+        "model_type": "pole",
+        "xyz": [2.15, 1.97, 0],
+        "tf_broadcaster": false
+        }
+        ,
+        
+        {    
+        "model_name": "pole15",
+        "model_type": "pole",
+        "xyz": [-0.9, -0.45, 0],
+        "tf_broadcaster": false
+        }
+        ,
+        
+        {    
+        "model_name": "pole16",
+        "model_type": "pole",
+        "xyz": [-0.2, 4.67, 0],
+        "tf_broadcaster": false
+        }
+        ,
+        
+        {    
+        "model_name": "pole17",
+        "model_type": "pole",
+        "xyz": [-0.85, 1.84, 0],
+        "tf_broadcaster": false
+        }
+        ,
+        
+        {    
+        "model_name": "pole18",
+        "model_type": "pole",
+        "xyz": [-1.72, 0.4, 0],
+        "tf_broadcaster": false
+        }
+        ,
+        
+        {    
+        "model_name": "pole19",
+        "model_type": "pole",
+        "xyz": [-0.96, -2.77, 0],
+        "tf_broadcaster": false
+        }
+        ,
+        
+        {    
+        "model_name": "pole20",
+        "model_type": "pole",
+        "xyz": [4.9, 1.81, 0],
+        "tf_broadcaster": false
+        }
+        
+        
+    ]
+}
