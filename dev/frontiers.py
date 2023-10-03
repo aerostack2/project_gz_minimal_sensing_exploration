@@ -1,4 +1,5 @@
 """get frontiers from map"""
+from __future__ import annotations
 import cv2
 import numpy as np
 
@@ -8,11 +9,8 @@ def random_color() -> tuple:
     return tuple(np.random.randint(0, 255, 3).tolist())
 
 
-def main(file_name: str):
-    """get frontiers"""
-    img = cv2.imread(file_name, cv2.IMREAD_GRAYSCALE)
-    # img = cv2.resize(img, (500, 500))
-
+def get_frontiers(img: np.array, area_thresh: int = 10) -> tuple[list, list]:
+    """Get map frontiers"""
     unk_obs = np.copy(img)
     unk_obs[unk_obs == 128] = 0
     unk_obs = cv2.erode(unk_obs, np.ones((3, 3)))
@@ -34,29 +32,46 @@ def main(file_name: str):
     output = cv2.connectedComponentsWithStats(frontiers)
     (num_labels, labels, stats, centroids) = output
 
-    rgb_img = cv2.cvtColor(img, cv2.COLOR_GRAY2RGB)
-
+    filtered_masks = []
+    filtered_centroids = []
     # item labeled 0 represents the background label, skip background
     for i in range(1, num_labels):
         area = stats[i, cv2.CC_STAT_AREA]
-        if area < 10:
+        if area < area_thresh:
             continue
-        mask = np.zeros(img.shape, dtype="uint8")
         i_mask = (labels == i).astype("uint8") * 255
-        mask = cv2.bitwise_or(mask, i_mask)
+
+        filtered_masks.append(i_mask)
+        filtered_centroids.append(centroids[i])
+    return filtered_centroids, filtered_masks
+
+
+def paint_frontiers(img: np.array, frontiers: list, centroids: list) -> np.array:
+    """Returns a copy of img with frontiers painted"""
+    rgb_img = cv2.cvtColor(img, cv2.COLOR_GRAY2RGB)
+    for i, centroid in enumerate(centroids):
+        mask = frontiers[i]
 
         color = random_color()
         rgb_mask = cv2.cvtColor(mask, cv2.COLOR_GRAY2RGB)
         rgb_img[(rgb_mask == 255).all(-1)] = color
 
-        (cX, cY) = centroids[i]
+        (cX, cY) = centroid
         cv2.circle(rgb_img, (int(cX), int(cY)), 2, color, -1)
+
         # cv2.imshow(f'mask{i}', rgb_mask)
 
-    rgb_img = cv2.resize(rgb_img, (400, 400))
-    cv2.imshow('centroids', rgb_img)
-    cv2.imwrite('centroids_big.png', rgb_img)
+    return rgb_img
 
+
+def main(file_name: str):
+    """get frontiers"""
+    img = cv2.imread(file_name, cv2.IMREAD_GRAYSCALE)
+    # img = cv2.resize(img, (500, 500))
+
+    centroids, frontiers = get_frontiers(img)
+    new_img = paint_frontiers(img, frontiers, centroids)
+    cv2.imshow('frontiers', new_img)
     cv2.waitKey(0)
 
 
