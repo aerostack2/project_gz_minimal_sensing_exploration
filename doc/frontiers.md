@@ -28,7 +28,7 @@ Source
 
 1. Binarization with unknown space as free space
 2. Adding drone mask to obstacle map
-3. Eroding obstacles
+3. Eroding obstacles with one extra iteration to avoid creating frontiers on image limits
 
 ![Binary unk as free](frontiers/unk_free.png)
 ![Obstacles](frontiers/obstacles.png)
