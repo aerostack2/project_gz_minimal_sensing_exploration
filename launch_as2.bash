@@ -3,16 +3,20 @@
 usage() {
     echo "  options:"
     echo "      -m: use multi ranger sensor"
+    echo "      -i: choose world instance (default: '')"
     echo "      -r: record rosbag"
     echo "      -t: launch keyboard teleoperation"
-    echo "      -n: drone namespace, default is drone0"
+    echo "      -n: drone namespace (default: 'drone0')"
 }
 
 # Arg parser
-while getopts "mrtn" opt; do
+while getopts "mi:rtn:" opt; do
   case ${opt} in
     m )
       modifier="_multi_ranger"
+      ;;
+    i )
+      instance="${OPTARG}"
       ;;
     r )
       record_rosbag="true"
@@ -29,7 +33,7 @@ while getopts "mrtn" opt; do
       exit 1
       ;;
     : )
-      if [[ ! $OPTARG =~ ^[swrt]$ ]]; then
+      if [[ ! $OPTARG =~ ^[mrt]$ ]]; then
         echo "Option -$OPTARG requires an argument" >&2
         usage
         exit 1
@@ -50,9 +54,10 @@ export IGN_GAZEBO_RESOURCE_PATH=$PWD/assets/worlds:$PWD/assets/models:$IGN_GAZEB
 record_rosbag=${record_rosbag:="false"}
 launch_keyboard_teleop=${launch_keyboard_teleop:="false"}
 drone_namespace=${drone_namespace:="drone0"}
+instance=${instance:=""}
 
 estimator_plugin="ground_truth"
-simulation_config="sim_config/world${modifier}.json"
+simulation_config="assets/worlds/world${modifier}${instance}.json"
 rviz_config="sim_config/rviz${modifier}.rviz"
 
 tmuxinator start -n ${drone_namespace} -p tmuxinator/session.yml \

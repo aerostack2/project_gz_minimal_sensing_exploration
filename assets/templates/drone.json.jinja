@@ -1,8 +1,8 @@
 {
     "world_name": "{{ world_name | default("empty") }}",
     "drones": [
-            {% for drone in drones %}
-            {
+    {%- for drone in drones %}
+        {
             "model_type": "quadrotor_base",
             "model_name": "drone0",
             "xyz": {{ drone.xyz }},
@@ -10,17 +10,16 @@
             "flight_time": 60,
             "payload": [
                 {
-                  "model_type": "hd_camera",
-                  "model_name": "front_camera"
+                    "model_type": "hd_camera",
+                    "model_name": "front_camera"
                 },
                 {
                     "model_type": "planar_lidar",
                     "model_name": "lidar",
                     "xyz": [0.1, 0, 0]
-                  }
+                }
             ]
-            }
-            {% if not loop.last %},{% endif %}
-            {% endfor %}
+        }{% if not loop.last %},{% endif %}
+    {% endfor -%}
     ]
 }
