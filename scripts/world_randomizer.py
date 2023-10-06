@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-__authors__ = "David Hoo, Pedro Arias Perez"
+__authors__ = "David Ho, Pedro Arias Perez"
 __license__ = "BSD-3-Clause"
 
 
