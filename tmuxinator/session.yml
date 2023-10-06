@@ -30,6 +30,7 @@ windows:
       panes:
         - ros2 launch as2_ign_gazebo_assets launch_simulation.py
           use_sim_time:=true
+          headless:=true
           simulation_config_file:=<%= simulation_config %>
         - ros2 launch as2_viz as2_viz.launch.py
             namespace:=<%= drone_namespace %>
@@ -98,3 +99,6 @@ windows:
                 safety_distance:=0.3
             - ros2 launch as2_path_planning explorer.launch.py
                 namespace:=<%= drone_namespace %>
+                frontier_min_area:=20
+                safety_distance:=0.3
+                reached_dist_thresh:=0.2
