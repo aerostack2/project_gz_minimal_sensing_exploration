@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 
 <sdf version="1.6">
-    <world name="box">
+    <world name="{{ world_name }}">
         <physics name="4ms" type="ignored">
             <max_step_size>0.004</max_step_size>
             <real_time_factor>1.0</real_time_factor>
@@ -43,13 +43,13 @@
             <uri>model://ground_plane</uri>
         </include>
 
-        {% for model in models %}
-        <model>
+        {%- for model, pose in models.items() %}
+        <include>
             <uri>model://pole</uri>
-            <name> {{ model.name }}</name>
-            <pose>{{ model.pose | join(' ') }}</pose>
-        </model>
-        {% endfor %}
+            <name>{{ model }}</name>
+            <pose>{{ pose | join(' ') }}</pose>
+        </include>
+        {%- endfor %}
 
         <model name="+X">
             <pose>10 0 0 0 0 0</pose>
