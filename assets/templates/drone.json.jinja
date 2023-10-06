@@ -22,16 +22,5 @@
             }
             {% if not loop.last %},{% endif %}
             {% endfor %}
-    ],
-    "objects": [
-        {% for object in objects %}
-        {    
-        "model_name": "{{ object.model_name }}",
-        "model_type": "pole",
-        "xyz": {{ object.xyz }},
-        "tf_broadcaster": false
-        }
-        {% if not loop.last %},{% endif %}
-        {% endfor %}
     ]
 }
