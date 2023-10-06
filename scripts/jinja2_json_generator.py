@@ -33,10 +33,10 @@ def randomize_drone_pose():
     return drone, x, y
 
 
-def generate_objects(num_objects: int, drone_coords: list, min_distance: int):
+def generate_objects(num_objects : int, drone_coords : list, min_distance : int):
     """
     Given drone coordinates, generate random objects within the same grid
-
+    
     drone_coords = (x, y)
     min_distance = minimum distance away from drone
     """
@@ -49,40 +49,41 @@ def generate_objects(num_objects: int, drone_coords: list, min_distance: int):
         while True:
             x = round(random.uniform(-5, 5), 2)
             y = round(random.uniform(-5, 5), 2)
-
-            too_close = any(distance((x, y), drone) <
-                            min_distance for drone in drones)
-
+            
+            too_close = any(distance((x, y), drone) < min_distance for drone in drones)
+            
             if not too_close:
                 break
         object = {
-            "model_name": f"pole{i + 1}",
-            "xyz": [x, y, 0],
+            "name": f"pole{i + 1}",
+            "pose": [x, y, 0, 0, 0, 0],
         }
         objects.append(object)
         x_ls.append(x)
         y_ls.append(y)
-
+    
     return objects, x_ls, y_ls
 
-
-def generate_json_world(world_name: str, num_world: int, num_object: int, safety_margin: int, visualize: bool):
+def generate_json_world(world_name : str, num_world : int, num_object : int, safety_margin : int, visualize : bool):
     environment = Environment(loader=FileSystemLoader("../assets/templates/"))
 
-    world_template = environment.get_template("world.json.jinja")
+    json_template = environment.get_template("drone.json.jinja")
+    sdf_template = environment.get_template("world.sdf.jinja")
+
 
     for i in range(num_world):
         random_drone_pose, x_drone, y_drone = randomize_drone_pose()
 
         drone_xy = (x_drone, y_drone)
 
-        generated_objects, xpoints, ypoints = generate_objects(
-            num_object, drone_xy, safety_margin)
+        generated_objects, xpoints, ypoints = generate_objects(num_object, drone_xy, safety_margin)
 
-        world_data = {"world_name": f"{world_name}{i+1}",
-                      "objects": generated_objects, "drones": random_drone_pose}
+        json_data = {"world_name": f"{world_name}{i+1}", "drones": random_drone_pose}
 
-        world_output = world_template.render(world_data)
+        json_output = json_template.render(json_data)
+
+
+        sdf_data = sdf_template.render(models=generated_objects)
 
         # print(world_output)
 
@@ -105,13 +106,18 @@ def generate_json_world(world_name: str, num_world: int, num_object: int, safety
             plt.title(f"World {i+1}")
             plt.grid()
             plt.show()
-
+            
         json_file_path = f"../assets/worlds/world_{i + 1}.json"
+        sdf_file_path = f"../assets/worlds/world_{i + 1}.sdf"
 
         # Write the JSON string to the file
         with open(json_file_path, "w") as json_file:
-            json_file.write(world_output)
-
+            json_file.write(json_output)
+        
+        # Write the XML string to the file
+        with open(sdf_file_path, "w") as sdf_file:
+            sdf_file.write(sdf_data)
+        
         print(f"World {i+1} has been saved")
 
 
