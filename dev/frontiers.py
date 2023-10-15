@@ -5,11 +5,127 @@ import numpy as np
 
 SAFETY_DISTANCE = 0.3
 RESOLUTION = 0.1
+AREA_MAX = 25
 
 
 def random_color() -> tuple:
     """radom color tuple"""
     return tuple(np.random.randint(0, 255, 3).tolist())
+
+
+def get_drift_from_x_axis(vx: float, vy: float) -> float:
+    """get angle between x axis and vector defined by vx, vy"""
+    # unit vector in the same direction as the x axis
+    x_axis = np.array([1, 0])
+
+    # unit vector in the same direction as your line
+    vector = np.array([vx, vy])
+    dot_product = np.dot(x_axis, vector)
+    angle_2_x = np.arccos(dot_product)
+    return angle_2_x.item()
+
+
+def rotate_image(image, angle):
+    """
+    https://stackoverflow.com/questions/9041681/opencv-python-rotate-image-by-x-degrees-around-specific-point
+    """
+    image_center = tuple(np.array(image.shape[1::-1]) / 2)
+    rot_mat = cv2.getRotationMatrix2D(image_center, angle, 1.0)
+    result = cv2.warpAffine(
+        image, rot_mat, image.shape[1::-1], flags=cv2.INTER_LINEAR)
+    return result
+
+
+def calc_centroid(arr: np.array) -> tuple:
+    """calc centroid of array"""
+    length = arr.shape[0]
+    sum_x = np.sum(arr[:, 0])
+    sum_y = np.sum(arr[:, 1])
+    return int(sum_y/length), int(sum_x/length)
+
+
+def rotate_around(pts: np.array, angle: float, origin: np.array) -> np.array:
+    """
+    rotate array around origin
+        return R * (pts - o) + o
+    """
+    R = np.array([(np.cos(angle), -np.sin(angle)),
+                  (np.sin(angle),  np.cos(angle))])
+    o = np.array(origin)
+    w = np.zeros_like(pts)
+    for i, v in enumerate(pts):
+        w[i] = np.squeeze((R @ (v.T-o.T) + o.T).T)
+    return w
+
+
+def split_frontier_img(frontier: np.array) -> list[np.array]:
+    # get list of point in frontier
+    test = np.argwhere(frontier == 255)
+    # get orientation of frontier from point list
+    [vx, vy, x, y] = cv2.fitLine(test, cv2.DIST_L2, 0, 0.01, 0.01)
+    angle = get_drift_from_x_axis(vx, vy)  # rad
+    degrees = angle * 180 / np.pi  # degrees
+    print("vx vy", vx, vy)
+    print("angle", degrees)
+
+    # rotate frontier to align with x axis
+    rotated = rotate_image(frontier, -int(degrees))
+    rotated = cv2.threshold(rotated, 50, 255, cv2.THRESH_BINARY)[1]
+    cv2.imshow('rotated', rotated)
+
+    # if w > h:
+    #     test = sorted(test, key=lambda k: [k[1], k[0]])
+
+    # get list of point rotated frontier
+    test = np.argwhere(rotated == 255)
+    print("len rotated", len(test))
+
+    # split rotated frontier in 2
+    tokens = np.array_split(test, 2)
+    print("tokens", tokens[0][:5])
+
+    frontiers = []
+    centroids = []
+    for tok in tokens:
+        centroids.append(calc_centroid(tok))
+
+        myimg = np.zeros_like(frontier)
+        myimg[tokens[0][:, 0], tokens[0][:, 1]] = 255
+        myimg = rotate_image(myimg, int(angle))
+        frontiers.append(np.argwhere(myimg == 255))
+
+    print("len tokens", len(tokens[0]))
+    # print("first", tokens[0])
+    cv2.imshow('splitted', myimg)
+    cv2.waitKey(0)
+    return tokens, centroids
+
+
+def split_frontier(frontier: np.array, n: int) -> list[np.array]:
+    """Split frontier in n parts"""
+    # get list of point in frontier
+    pts = np.argwhere(frontier == 255)
+    # get orientation of frontier from point list
+    [vx, vy, x, y] = cv2.fitLine(pts, cv2.DIST_L2, 0, 0.01, 0.01)
+    angle = get_drift_from_x_axis(vx, vy)  # rad
+
+    # rotate frontier to align with x axis
+    o = np.array(frontier.shape[1::-1]) / 2
+    rotated = rotate_around(pts, -angle, o)
+    # sort by x
+    rotated = rotated[np.argsort(rotated[:, 0])]
+
+    # split rotated frontier in n parts
+    tokens = np.array_split(rotated, n)
+
+    frontiers = []
+    centroids = []
+    for token in tokens:
+        # rotate back
+        tok = rotate_around(token, angle, o)
+        frontiers.append(tok)
+        centroids.append(calc_centroid(tok))
+    return frontiers, centroids
 
 
 def get_frontiers(img: np.array, area_thresh: int = 10) -> tuple[list, list]:
@@ -42,12 +158,27 @@ def get_frontiers(img: np.array, area_thresh: int = 10) -> tuple[list, list]:
     # item labeled 0 represents the background label, skip background
     for i in range(1, num_labels):
         area = stats[i, cv2.CC_STAT_AREA]
+        # x = stats[i, cv2.CC_STAT_LEFT]
+        # y = stats[i, cv2.CC_STAT_TOP]
+        # w = stats[i, cv2.CC_STAT_WIDTH]
+        # h = stats[i, cv2.CC_STAT_HEIGHT]
         if area < area_thresh:
             continue
         i_mask = (labels == i).astype("uint8") * 255
+        # cv2.imshow(f'mask{i}', i_mask)
 
-        filtered_masks.append(i_mask)
-        filtered_centroids.append(centroids[i])
+        n = area // AREA_MAX
+        if n <= 1:
+            filtered_masks.append(i_mask)
+            filtered_centroids.append(centroids[i])
+            continue
+
+        front, centr = split_frontier(i_mask, n)
+        for i, f in enumerate(front):
+            myimg = np.zeros_like(img)
+            myimg[f[:, 0], f[:, 1]] = 255
+            filtered_masks.append(myimg)
+            filtered_centroids.append(centr[i])
     return filtered_centroids, filtered_masks
 
 
@@ -82,4 +213,12 @@ def main(file_name: str):
 
 if __name__ == "__main__":
     # input img: 200x200 with free space = 255, obstacles = 0, unknown = 128
+
+    src = np.array([[0, 0], [0, 1], [0, 2]])
+    # angle = -np.pi/2
+    # origin = (0, 0)
+    # rotated = rotate_around(src, angle, origin)
+    # assert np.flip(src, 1).tolist() == rotated.tolist()
+    # exit()
+
     main('map.png')

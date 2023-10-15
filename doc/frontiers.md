@@ -55,3 +55,15 @@ Centroids are calculed with pixel of each frontiers.
 
 ![centroids](frontiers/centroids.png)
 ![centroids resized](frontiers/centroids_big.png)
+
+
+## Frontier filtering
+
+1. Frontier are filtered by minimum and maximum area. If a frontier is smaller than a threshold, it is discarded. If a frontier is larger than another threshold, it is splitted.
+2. While splitting frontiers:
+    1. Frontier orientation is obtained from best fitting line of the pixels distribution.
+    2. Given the frontier orientation, it is aligned within the x axis.
+    3. After, the list of points of the frontier are sorted following x axis.
+    4. Point list is splitted in `area % area_max`.
+    5. Tokens are rotated back to its initial orientation.
+    6. New centroids are calculated from each token.
