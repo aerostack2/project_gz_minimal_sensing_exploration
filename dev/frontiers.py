@@ -5,7 +5,6 @@ import numpy as np
 
 SAFETY_DISTANCE = 0.3
 RESOLUTION = 0.1
-AREA_MAX = 25
 
 
 def random_color() -> tuple:
@@ -58,49 +57,6 @@ def rotate_around(pts: np.array, angle: float, origin: np.array) -> np.array:
     return w
 
 
-def split_frontier_img(frontier: np.array) -> list[np.array]:
-    # get list of point in frontier
-    test = np.argwhere(frontier == 255)
-    # get orientation of frontier from point list
-    [vx, vy, x, y] = cv2.fitLine(test, cv2.DIST_L2, 0, 0.01, 0.01)
-    angle = get_drift_from_x_axis(vx, vy)  # rad
-    degrees = angle * 180 / np.pi  # degrees
-    print("vx vy", vx, vy)
-    print("angle", degrees)
-
-    # rotate frontier to align with x axis
-    rotated = rotate_image(frontier, -int(degrees))
-    rotated = cv2.threshold(rotated, 50, 255, cv2.THRESH_BINARY)[1]
-    cv2.imshow('rotated', rotated)
-
-    # if w > h:
-    #     test = sorted(test, key=lambda k: [k[1], k[0]])
-
-    # get list of point rotated frontier
-    test = np.argwhere(rotated == 255)
-    print("len rotated", len(test))
-
-    # split rotated frontier in 2
-    tokens = np.array_split(test, 2)
-    print("tokens", tokens[0][:5])
-
-    frontiers = []
-    centroids = []
-    for tok in tokens:
-        centroids.append(calc_centroid(tok))
-
-        myimg = np.zeros_like(frontier)
-        myimg[tokens[0][:, 0], tokens[0][:, 1]] = 255
-        myimg = rotate_image(myimg, int(angle))
-        frontiers.append(np.argwhere(myimg == 255))
-
-    print("len tokens", len(tokens[0]))
-    # print("first", tokens[0])
-    cv2.imshow('splitted', myimg)
-    cv2.waitKey(0)
-    return tokens, centroids
-
-
 def split_frontier(frontier: np.array, n: int) -> list[np.array]:
     """Split frontier in n parts"""
     # get list of point in frontier
@@ -128,7 +84,7 @@ def split_frontier(frontier: np.array, n: int) -> list[np.array]:
     return frontiers, centroids
 
 
-def get_frontiers(img: np.array, area_thresh: int = 10) -> tuple[list, list]:
+def get_frontiers(img: np.array, min_thresh: int = 10, max_thresh: int = 30) -> tuple[list, list]:
     """Get map frontiers"""
     unk_obs = np.copy(img)
     unk_obs[unk_obs == 128] = 0
@@ -162,12 +118,12 @@ def get_frontiers(img: np.array, area_thresh: int = 10) -> tuple[list, list]:
         # y = stats[i, cv2.CC_STAT_TOP]
         # w = stats[i, cv2.CC_STAT_WIDTH]
         # h = stats[i, cv2.CC_STAT_HEIGHT]
-        if area < area_thresh:
+        if area < min_thresh:
             continue
         i_mask = (labels == i).astype("uint8") * 255
         # cv2.imshow(f'mask{i}', i_mask)
 
-        n = area // AREA_MAX
+        n = area // max_thresh
         if n <= 1:
             filtered_masks.append(i_mask)
             filtered_centroids.append(centroids[i])
