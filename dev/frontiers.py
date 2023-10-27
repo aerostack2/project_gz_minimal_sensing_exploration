@@ -84,6 +84,42 @@ def split_frontier(frontier: np.array, n: int) -> list[np.array]:
     return frontiers, centroids
 
 
+def split_frontier_snake(frontier: np.array, n: int) -> list[np.array]:
+    """Split frontier in n parts"""
+    # endpoints should only have one neighbor,
+    # then endpoint value will be 100*2 (neighbors + itself)
+    f_scaled = np.copy(frontier)
+    f_scaled[f_scaled == 255] = 100
+    filtered_img = cv2.filter2D(f_scaled, -1, np.ones([3, 3]))
+    # masking to only pixels in frontier
+    filtered_img = cv2.bitwise_and(filtered_img, frontier, frontier)
+
+    # # other option to get endpoints
+    # myteste = cv2.inRange(
+    #     filtered_img, 190, 210)
+    # print(np.argwhere(myteste == 255))
+
+    # getting endpoints, after filtering only endpoints will have min value
+    minv, maxv, *_ = cv2.minMaxLoc(filtered_img, frontier)
+    endpoints = []
+    if minv != maxv:
+        endpoints = np.argwhere(filtered_img == minv)
+    pts_list = np.argwhere(frontier == 255)
+    if len(endpoints) != 0:
+        pts_list = np.append(pts_list, endpoints, axis=0)
+
+    # order points by neighbors
+    ordered = order_points(list(pts_list), -2)
+
+    # split ordered frontier in n parts
+    frontiers = np.array_split(ordered, n)
+
+    centroids = []
+    for token in frontiers:
+        centroids.append(calc_centroid(token))
+    return frontiers, centroids
+
+
 def get_frontiers(img: np.array, min_thresh: int = 10, max_thresh: int = 30) -> tuple[list, list]:
     """Get map frontiers"""
     unk_obs = np.copy(img)
@@ -129,13 +165,33 @@ def get_frontiers(img: np.array, min_thresh: int = 10, max_thresh: int = 30) -> 
             filtered_centroids.append(centroids[i])
             continue
 
-        front, centr = split_frontier(i_mask, n)
+        front, centr = split_frontier_snake(i_mask, n)
+        # front, centr = split_frontier(i_mask, n)
         for i, f in enumerate(front):
             myimg = np.zeros_like(img)
             myimg[f[:, 0], f[:, 1]] = 255
             filtered_masks.append(myimg)
             filtered_centroids.append(centr[i])
     return filtered_centroids, filtered_masks
+
+
+def order_points(points, ind):
+    """
+    Order points following its neightbors
+    Original code from: https://stackoverflow.com/a/68128653/9553849
+    """
+    # initialize a new list of points with the known first point
+    points_new = [points.pop(ind)]
+    # initialize the current point (as the known point)
+    pcurr = points_new[-1]
+    while len(points) > 0:
+        # distances between pcurr and all other remaining points
+        d = np.linalg.norm(np.array(points) - np.array(pcurr), axis=1)
+        ind = d.argmin()                   # index of the closest point
+        # append the closest point to points_new
+        points_new.append(points.pop(ind))
+        pcurr = points_new[-1]               # update the current point
+    return points_new
 
 
 def paint_frontiers(img: np.array, frontiers: list, centroids: list) -> np.array:
