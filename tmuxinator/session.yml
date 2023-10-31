@@ -97,10 +97,10 @@ windows:
                 use_sim_time:=true
                 use_path_optimizer:=false
                 safety_distance:=0.3
-                navigation_speed:=0.5
             - ros2 launch as2_path_planning explorer.launch.py
                 namespace:=<%= drone_namespace %>
                 use_sim_time:=true
                 frontier_min_area:=20
                 safety_distance:=0.3
                 reached_dist_thresh:=0.2
+                navigation_speed:=2.0
