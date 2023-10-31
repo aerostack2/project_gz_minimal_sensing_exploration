@@ -1,13 +1,48 @@
 <%
+require 'date'
+
 # Input parameters
 drone_namespace = @settings["drone_namespace"]
+
+# Other parameters
+## Same name as default, different path
+rosbag_name = DateTime.now.strftime("rosbag2_%Y_%m_%d-%H_%M_%S")
+
+# TODO: iterate through different namespaces
+# drone0:drone1:cf3
+test = "drone0|drone1|cf0"
+# - ros2 bag record --include-hidden-topics -o ./rosbags/<%= rosbag_name %>
+#     -e '/(<%= test %>)/platform/info|/clock'
 %>
 
 attach: true
 root: ./
+on_project_start: mkdir rosbags 2>/dev/null
+pre_window: humble; clear
 startup_window: rosbag
 windows:
   - rosbag:
       layout:
       panes:
-        - ./rosbag/record_rosbag.bash <%= drone_namespace %>
+        - ros2 bag record --include-hidden-topics -o ./rosbags/<%= rosbag_name %>
+            /tf
+            /tf_static
+            /<%= drone_namespace %>/platform/info
+            /<%= drone_namespace %>/self_localization/pose
+            /<%= drone_namespace %>/self_localization/twist
+            /<%= drone_namespace %>/actuator_command/twist
+            /<%= drone_namespace %>/sensor_measurements/odom
+            /<%= drone_namespace %>/traj_gen/yaw
+            /<%= drone_namespace %>/motion_reference/modify_waypoint
+            /<%= drone_namespace %>/motion_reference/pose
+            /<%= drone_namespace %>/motion_reference/trajectory
+            /<%= drone_namespace %>/motion_reference/twist
+            /<%= drone_namespace %>/debug/ref_traj_point
+            /<%= drone_namespace %>/debug/ref_traj_point_array
+            /<%= drone_namespace %>/debug/traj_generated
+            /<%= drone_namespace %>/ground_truth/pose
+            /<%= drone_namespace %>/ground_truth/twist
+            /<%= drone_namespace %>/actuator_command/pose
+            /<%= drone_namespace %>/actuator_command/thrust
+            /<%= drone_namespace %>/actuator_command/twist
+            /<%= drone_namespace %>/actuator_command/trajectory

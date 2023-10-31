@@ -67,7 +67,7 @@ tmuxinator start -n ${drone_namespace} -p tmuxinator/session.yml \
 wait
 
 if [[ ${record_rosbag} == "true" ]]; then
-  tmuxinator start -n rosbag -p tmuxinator/rosbag.yml
+  tmuxinator start -n rosbag -p tmuxinator/rosbag.yml \
       drone_namespace=${drone_namespace} &
   wait
 fi
