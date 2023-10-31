@@ -11,8 +11,6 @@ rosbag_name = DateTime.now.strftime("rosbag2_%Y_%m_%d-%H_%M_%S")
 # TODO: iterate through different namespaces
 # drone0:drone1:cf3
 test = "drone0|drone1|cf0"
-# - ros2 bag record --include-hidden-topics -o ./rosbags/<%= rosbag_name %>
-#     -e '/(<%= test %>)/platform/info|/clock'
 %>
 
 attach: true
