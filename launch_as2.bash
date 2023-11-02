@@ -60,20 +60,20 @@ estimator_plugin="ground_truth"
 simulation_config="assets/worlds/world${modifier}${instance}.json"
 rviz_config="sim_config/rviz${modifier}.rviz"
 
-tmuxinator start -n ${drone_namespace} -p tmuxinator/session.yml \
+tmuxinator start -p tmuxinator/session.yml \
       drone_namespace=${drone_namespace} \
       simulation_config=${simulation_config} \
       rviz_config=${rviz_config} &
 wait
 
 if [[ ${record_rosbag} == "true" ]]; then
-  tmuxinator start -n rosbag -p tmuxinator/rosbag.yml \
+  tmuxinator start -p tmuxinator/rosbag.yml \
       drone_namespace=${drone_namespace} &
   wait
 fi
 
 if [[ ${launch_keyboard_teleop} == "true" ]]; then
-  tmuxinator start -n keyboard_teleop -p tmuxinator/keyboard_teleop.yml \
+  tmuxinator start -p tmuxinator/keyboard_teleop.yml \
       simulation=true \
       drone_namespace=${drone_namespace} &
   wait

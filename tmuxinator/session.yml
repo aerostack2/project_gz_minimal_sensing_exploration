@@ -13,14 +13,15 @@ motion_controller_plugin    = "pid_speed_controller"
 simulation                  = "false"
 
 if estimator_plugin == "mocap_pose"
-    state_estimator_config_file = "real_config/state_estimator_mocap.yaml"
+  state_estimator_config_file = "real_config/state_estimator_mocap.yaml"
 elsif estimator_plugin == "raw_odometry"
-    state_estimator_config_file = "sim_config/state_estimator_odom.yaml"
+  state_estimator_config_file = "sim_config/state_estimator_odom.yaml"
 elsif estimator_plugin == "ground_truth"
-    state_estimator_config_file = "sim_config/state_estimator_ground_truth.yaml"
+  state_estimator_config_file = "sim_config/state_estimator_ground_truth.yaml"
 end
 
 %>
+name: <%= drone_namespace %>
 attach: false
 root: ./
 pre_window: humble; clear
@@ -29,9 +30,9 @@ windows:
       layout:
       panes:
         - ros2 launch as2_ign_gazebo_assets launch_simulation.py
-          use_sim_time:=true
-          headless:=true
-          simulation_config_file:=<%= simulation_config %>
+            use_sim_time:=true
+            headless:=true
+            simulation_config_file:=<%= simulation_config %>
         - ros2 launch as2_visualization as2_visualization.launch.py
             namespace:=<%= drone_namespace %>
             use_sim_time:=true
@@ -81,27 +82,27 @@ windows:
             namespace:=<%= drone_namespace %>
             use_sim_time:=true
   - path_planning:
-        layout:
-        panes:
-            - ros2 launch as2_path_planning laserscan_to_occupancy_grid.launch.py
-                namespace:=<%= drone_namespace %>
-                use_sim_time:=true
-                map_resolution:=0.1
-                map_width:=200
-                map_height:=200
-                output_topic:=/map_server/input_occupancy_grid
-            - ros2 launch as2_path_planning map_server.launch.py
-                namespace:=map_server
-                use_sim_time:=true
-            - ros2 launch as2_path_planning path_planner.launch.py
-                namespace:=<%= drone_namespace %>
-                use_sim_time:=true
-                use_path_optimizer:=false
-                safety_distance:=0.3
-            - ros2 launch as2_path_planning explorer.launch.py
-                namespace:=<%= drone_namespace %>
-                use_sim_time:=true
-                frontier_min_area:=20
-                safety_distance:=0.3
-                reached_dist_thresh:=0.2
-                navigation_speed:=1.0
+      layout:
+      panes:
+        - ros2 launch as2_path_planning laserscan_to_occupancy_grid.launch.py
+            namespace:=<%= drone_namespace %>
+            use_sim_time:=true
+            map_resolution:=0.1
+            map_width:=200
+            map_height:=200
+            output_topic:=/map_server/input_occupancy_grid
+        - ros2 launch as2_path_planning map_server.launch.py
+            namespace:=map_server
+            use_sim_time:=true
+        - ros2 launch as2_path_planning path_planner.launch.py
+            namespace:=<%= drone_namespace %>
+            use_sim_time:=true
+            use_path_optimizer:=false
+            safety_distance:=0.3
+        - ros2 launch as2_path_planning explorer.launch.py
+            namespace:=<%= drone_namespace %>
+            use_sim_time:=true
+            frontier_min_area:=20
+            safety_distance:=0.3
+            reached_dist_thresh:=0.2
+            navigation_speed:=1.0
