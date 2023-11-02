@@ -89,8 +89,9 @@ windows:
                 map_resolution:=0.1
                 map_width:=200
                 map_height:=200
+                output_topic:=/map_server/input_occupancy_grid
             - ros2 launch as2_path_planning map_server.launch.py
-                namespace:=<%= drone_namespace %>
+                namespace:=map_server
                 use_sim_time:=true
             - ros2 launch as2_path_planning path_planner.launch.py
                 namespace:=<%= drone_namespace %>
@@ -103,4 +104,4 @@ windows:
                 frontier_min_area:=20
                 safety_distance:=0.3
                 reached_dist_thresh:=0.2
-                navigation_speed:=2.0
+                navigation_speed:=1.0
