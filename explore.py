@@ -26,14 +26,30 @@ class Explorer(DroneInterface):
 
         return self.explore_client.call_async(request)
 
+    @property
+    def connected(self) -> bool:
+        """Check if the drone is connected"""
+        return self.info["connected"]
+
 
 if __name__ == '__main__':
     rclpy.init()
 
     scouts: list[Explorer] = []
-    scouts.append(Explorer(drone_id="drone0", verbose=False))
-    scouts.append(Explorer(drone_id="drone1", verbose=False))
-    scouts.append(Explorer(drone_id="drone2", verbose=False))
+    scouts.append(Explorer(drone_id="drone0",
+                  verbose=False, use_sim_time=True))
+    scouts.append(Explorer(drone_id="drone1",
+                  verbose=False, use_sim_time=True))
+    scouts.append(Explorer(drone_id="drone2",
+                  verbose=False, use_sim_time=True))
+
+    # Only keep connected drones
+    for scout in scouts.copy():
+        if not scout.connected:
+            logging.get_logger("rclpy").info(
+                f"{scout.drone_id} not connected, removing from list")
+            scouts.remove(scout)
+            scout.shutdown()
 
     for scout in scouts:
         scout.offboard()
