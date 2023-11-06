@@ -66,7 +66,7 @@ tmuxinator start -p tmuxinator/session_simless.yml \
       simulation_config=${simulation_config} &
 wait
 
-tmuxinator start -p tmuxinator/session_2.yml \
+tmuxinator start -p tmuxinator/session_simless.yml \
       drone_namespace="drone2" \
       simulation_config=${simulation_config} &
 wait
