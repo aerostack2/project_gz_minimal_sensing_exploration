@@ -7,7 +7,7 @@ import rclpy
 from rclpy.task import Future
 from rclpy import logging
 from as2_python_api.drone_interface import DroneInterface
-from std_srvs.srv import SetBool
+from std_srvs.srv import SetBool, Trigger
 
 
 class Explorer(DroneInterface):
@@ -50,6 +50,11 @@ if __name__ == '__main__':
                 f"{scout.drone_id} not connected, removing from list")
             scouts.remove(scout)
             scout.shutdown()
+    if not scouts:
+        logging.get_logger("rclpy").info("No connected drones")
+        rclpy.shutdown()
+        sys.exit(1)
+    evaluator_start = scouts[0].create_client(Trigger, "/evaluator/start")
 
     for scout in scouts:
         scout.offboard()
@@ -59,6 +64,9 @@ if __name__ == '__main__':
     for scout in scouts:
         wait = scout == scouts[-1]
         scout.takeoff(1.0, wait=wait)
+
+    logging.get_logger("rclpy").info("Starting evaluator")
+    evaluator_start.call_async(Trigger.Request())
 
     futures: list[Future] = [scout.explore() for scout in scouts]
     logging.get_logger("rclpy").info("Exploring")

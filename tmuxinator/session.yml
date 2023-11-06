@@ -106,3 +106,6 @@ windows:
             safety_distance:=0.3
             reached_dist_thresh:=0.2
             navigation_speed:=1.0
+  - evaluator:
+      panes:
+        - python scripts/evaluate.py -s -p
