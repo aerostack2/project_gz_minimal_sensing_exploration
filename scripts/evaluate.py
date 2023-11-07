@@ -20,30 +20,40 @@ from matplotlib import animation
 class Visualizer:
     """Matplotlib visualizer"""
 
-    def __init__(self, x_lim: int):
+    def __init__(self, x_lim: int, y_lim: int):
         self.xlim = x_lim
+        self.ylim = y_lim
 
         self.fig, self.ax = plt.subplots()
         self.line, = self.ax.plot([], [], lw=2)
         self.ax.set(xlabel='time (s)', ylabel='area (%)',
                     title='Exploration Progress')
         self.ax.grid()
-        self.xdata, self.ydata = [], []
+        self.ax2 = self.ax.twinx()
+        self.line2, = self.ax2.plot([], [], lw=2)
+        self.ax2.set_ylabel('area (m^2)')
+        self.xdata, self.ydata, self.ydata2 = [], [], []
+
+        self.fig.tight_layout()
 
     def init_plot(self):
         """Initialize the plot"""
         self.ax.set_ylim(0, 100)
         self.ax.set_xlim(0, self.xlim)
+        self.ax2.set_ylim(0, self.ylim)
         self.line.set_data(self.xdata, self.ydata)
+        self.line2.set_data(self.xdata, self.ydata2)
         return self.line
 
     def update_plot(self, frame):
         """Update plot data"""
-        t, y = frame
+        t, pct, area = frame
         self.xdata.append(t)
-        self.ydata.append(y)
+        self.ydata.append(pct)
+        self.ydata2.append(area)
 
         self.line.set_data(self.xdata, self.ydata)
+        self.line2.set_data(self.xdata, self.ydata2)
         return self.line
 
 
@@ -63,6 +73,7 @@ class Evaluator(Node):
             self.logger.addHandler(logging.StreamHandler(sys.stdout))
         self.logger.addHandler(logging.FileHandler(log_file, mode="w"))
 
+        self.explored_area = 0.0
         self.explored_percent = 0.0
         self.last_time = 0.0
         self.last_occ_grid: OccupancyGrid
@@ -80,7 +91,7 @@ class Evaluator(Node):
 
     def yield_viz(self):
         """Yield last time and percentage explored. Used for plotting"""
-        yield self.last_time, self.explored_percent
+        yield self.last_time, self.explored_percent, self.explored_area
 
     def occ_grid_cbk(self, msg: OccupancyGrid) -> None:
         """Callback for occupancy grid"""
@@ -111,6 +122,9 @@ class Evaluator(Node):
         self.logger.info("%d.%d %s", timestamp.sec, timestamp.nanosec, counter)
 
         size = self.last_occ_grid.info.width * self.last_occ_grid.info.height
+        self.explored_area = (size - counter[-1]) * \
+            self.last_occ_grid.info.resolution * \
+            self.last_occ_grid.info.resolution
         self.explored_percent = 100 * (size - counter[-1]) / size
         self.last_time = (
             timestamp.sec + timestamp.nanosec * 1e-9) - self.start_timestamp
@@ -140,7 +154,7 @@ if __name__ == "__main__":
     evaluator = Evaluator(args.use_sim_time, args.log_file, args.verbose)
 
     if args.plot_data:
-        vis = Visualizer(x_lim=600)  # 10 minutes
+        vis = Visualizer(x_lim=600, y_lim=400)  # 10 minutes
         ani = animation.FuncAnimation(vis.fig, vis.update_plot, evaluator.yield_viz,
                                       interval=1000, init_func=vis.init_plot)
 
