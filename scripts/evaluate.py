@@ -5,6 +5,7 @@ import logging
 import argparse
 import threading
 from datetime import datetime
+from dataclasses import dataclass
 import numpy as np
 import rclpy
 from rclpy.node import Node
@@ -15,6 +16,49 @@ from nav_msgs.msg import OccupancyGrid
 from std_srvs.srv import Trigger
 import matplotlib.pyplot as plt
 from matplotlib import animation
+
+
+@dataclass
+class PlottingData:
+    """Data used for plotting"""
+    occ_grid: OccupancyGrid
+
+    def __post_init__(self):
+        self._first_stamp = self.occ_grid.header.stamp.sec + \
+            self.occ_grid.header.stamp.nanosec * 1e-9
+
+    def log(self) -> str:
+        """Return a log string"""
+        return f"{self.timestamp} {self.explored_area} {self.counter}"
+
+    def log_header(self) -> str:
+        """Log header"""
+        return f"{self._first_stamp} {self.occ_grid.info.width} {self.occ_grid.info.height} {self.occ_grid.info.resolution}"
+
+    @property
+    def timestamp(self) -> str:
+        """Data timestamp (s)"""
+        return (self.occ_grid.header.stamp.sec +
+                self.occ_grid.header.stamp.nanosec * 1e-9) - self._first_stamp
+
+    @property
+    def counter(self) -> dict[int, int]:
+        """Dictionary of counter cells in occ_grid"""
+        unique, counts = np.unique(self.occ_grid.data, return_counts=True)
+        return dict(zip(unique, counts))
+
+    @property
+    def explored_area(self) -> float:
+        """Explored area (m^2)"""
+        size = self.occ_grid.info.width * self.occ_grid.info.height
+        return (size - self.counter[-1]) * \
+            self.occ_grid.info.resolution * self.occ_grid.info.resolution
+
+    @property
+    def explored_percent(self) -> float:
+        """Explored area (%)"""
+        size = self.occ_grid.info.width * self.occ_grid.info.height
+        return 100 * (size - self.counter[-1]) / size
 
 
 class Visualizer:
@@ -45,12 +89,13 @@ class Visualizer:
         self.line2.set_data(self.xdata, self.ydata2)
         return self.line
 
-    def update_plot(self, frame):
+    def update_plot(self, frame: PlottingData):
         """Update plot data"""
-        t, pct, area = frame
-        self.xdata.append(t)
-        self.ydata.append(pct)
-        self.ydata2.append(area)
+        if frame is None:
+            return self.line
+        self.xdata.append(frame.timestamp)
+        self.ydata.append(frame.explored_percent)
+        self.ydata2.append(frame.explored_area)
 
         self.line.set_data(self.xdata, self.ydata)
         self.line2.set_data(self.xdata, self.ydata2)
@@ -73,9 +118,7 @@ class Evaluator(Node):
             self.logger.addHandler(logging.StreamHandler(sys.stdout))
         self.logger.addHandler(logging.FileHandler(log_file, mode="w"))
 
-        self.explored_area = 0.0
-        self.explored_percent = 0.0
-        self.last_time = 0.0
+        self.plotting_data: PlottingData = None
         self.last_occ_grid: OccupancyGrid
         self.start_timestamp: Time
 
@@ -91,7 +134,7 @@ class Evaluator(Node):
 
     def yield_viz(self):
         """Yield last time and percentage explored. Used for plotting"""
-        yield self.last_time, self.explored_percent, self.explored_area
+        yield self.plotting_data
 
     def occ_grid_cbk(self, msg: OccupancyGrid) -> None:
         """Callback for occupancy grid"""
@@ -102,13 +145,8 @@ class Evaluator(Node):
         _ = (request,)
         self._timer = self.create_timer(2.0, self.evaluate)
 
-        timestamp = self.last_occ_grid.header.stamp
-        width = self.last_occ_grid.info.width
-        height = self.last_occ_grid.info.height
-        resolution = self.last_occ_grid.info.resolution
-        self.logger.info(
-            "%d.%d %d %d %f", timestamp.sec, timestamp.nanosec, width, height, resolution)
-        self.start_timestamp = timestamp.sec + timestamp.nanosec * 1e-9
+        self.plotting_data = PlottingData(self.last_occ_grid)
+        self.logger.info(self.plotting_data.log_header())
         self.evaluate()
 
         response.success = True
@@ -116,18 +154,8 @@ class Evaluator(Node):
 
     def evaluate(self) -> None:
         """Evaluate the exploration"""
-        timestamp = self.last_occ_grid.header.stamp
-        unique, counts = np.unique(self.last_occ_grid.data, return_counts=True)
-        counter = dict(zip(unique, counts))
-        self.logger.info("%d.%d %s", timestamp.sec, timestamp.nanosec, counter)
-
-        size = self.last_occ_grid.info.width * self.last_occ_grid.info.height
-        self.explored_area = (size - counter[-1]) * \
-            self.last_occ_grid.info.resolution * \
-            self.last_occ_grid.info.resolution
-        self.explored_percent = 100 * (size - counter[-1]) / size
-        self.last_time = (
-            timestamp.sec + timestamp.nanosec * 1e-9) - self.start_timestamp
+        self.plotting_data.occ_grid = self.last_occ_grid
+        self.logger.info(self.plotting_data.log())
 
         # TODO: ROS log landmarks each X seconds
 
