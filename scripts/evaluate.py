@@ -34,11 +34,17 @@ class PlottingData:
 
     def log(self) -> str:
         """Return a log string"""
-        return f"{self.timestamp} {self.explored_area} {self.counter}"
-
-    def log_header(self) -> str:
-        """Log header"""
-        return f"{self._first_stamp} {self.occ_grid.info.width} {self.occ_grid.info.height} {self.occ_grid.info.resolution}"
+        unkown_cells = 0
+        free_cells = 0
+        occupied_cells = 0
+        for k, v in self.counter.items():
+            if k == -1:
+                unkown_cells += v
+            elif k > 20:
+                occupied_cells += v
+            else:
+                free_cells += v
+        return f"{self.timestamp} {self.explored_area} {unkown_cells} {free_cells} {occupied_cells} {self.paths}"
 
     @property
     def timestamp(self) -> str:
@@ -205,7 +211,6 @@ class Evaluator(Node):
         self._timer = self.create_timer(2.0, self.evaluate)
 
         self.plotting_data = PlottingData(self.last_occ_grid)
-        self.logger.info(self.plotting_data.log_header())
         self.evaluate()
 
         response.success = True
