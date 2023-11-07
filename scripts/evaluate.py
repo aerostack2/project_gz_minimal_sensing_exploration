@@ -5,7 +5,7 @@ import logging
 import argparse
 import threading
 from datetime import datetime
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 import numpy as np
 import rclpy
 from rclpy.node import Node
@@ -14,6 +14,7 @@ from rclpy.time import Time
 from rclpy.parameter import Parameter
 from nav_msgs.msg import OccupancyGrid
 from std_srvs.srv import Trigger
+from geometry_msgs.msg import PointStamped
 import matplotlib.pyplot as plt
 from matplotlib import animation
 
@@ -22,10 +23,14 @@ from matplotlib import animation
 class PlottingData:
     """Data used for plotting"""
     occ_grid: OccupancyGrid
+    paths: dict[str, float] = field(default_factory=dict)
 
     def __post_init__(self):
         self._first_stamp = self.occ_grid.header.stamp.sec + \
             self.occ_grid.header.stamp.nanosec * 1e-9
+
+    def __str__(self) -> str:
+        return f"[{self.timestamp}] Explored {round(self.explored_area, 2)} m2 ({round(self.explored_percent, 2)}%) paths={self.paths})"
 
     def log(self) -> str:
         """Return a log string"""
@@ -64,41 +69,82 @@ class PlottingData:
 class Visualizer:
     """Matplotlib visualizer"""
 
-    def __init__(self, x_lim: int, y_lim: int):
-        self.xlim = x_lim
-        self.ylim = y_lim
+    def __init__(self, area_max: int):
+        self.area_max = area_max
 
-        self.fig, self.ax = plt.subplots()
-        self.line, = self.ax.plot([], [], lw=2)
-        self.ax.set(xlabel='time (s)', ylabel='area (%)',
-                    title='Exploration Progress')
-        self.ax.grid()
-        self.ax2 = self.ax.twinx()
+        self.fig, self.axs = plt.subplots(2, 1, layout='constrained')
+        # Upper plot
+        self.line, = self.axs[0].plot([], [], lw=2)
+        self.axs[0].set(xlabel='time (s)', ylabel='area (%)',
+                        title='Exploration Progress')
+        self.axs[0].grid()
+        self.ax2 = self.axs[0].twinx()
         self.line2, = self.ax2.plot([], [], lw=2)
         self.ax2.set_ylabel('area (m^2)')
         self.xdata, self.ydata, self.ydata2 = [], [], []
 
-        self.fig.tight_layout()
+        # Lower plot
+        self.axs[1].set(xlabel='time (s)', ylabel='path length (m)')
+        self.axs[1].grid()
+        self.paths_data = {}
+        self.path_lines = {}
 
     def init_plot(self):
         """Initialize the plot"""
-        self.ax.set_ylim(0, 100)
-        self.ax.set_xlim(0, self.xlim)
-        self.ax2.set_ylim(0, self.ylim)
+        # Upper plot
+        self.axs[0].set_xlim(0, 300)  # 5 minutes
+        self.axs[0].set_ylim(0, 100)  # 100 %
+        self.ax2.set_ylim(0, self.area_max)
         self.line.set_data(self.xdata, self.ydata)
         self.line2.set_data(self.xdata, self.ydata2)
+
+        # Lower plot
+        self.axs[1].legend(loc='lower right')
+        self.axs[1].set_xlim(0, 300)  # 5 minutes
+        self.axs[1].set_ylim(0, 50)
         return self.line
 
     def update_plot(self, frame: PlottingData):
         """Update plot data"""
         if frame is None:
             return self.line
+
+        # Upper plot
+        # Not need to update y axes limits
+        # Update x axes limits if needed
+        xmin, xmax = self.axs[0].get_xlim()
+        if frame.timestamp > xmax:
+            self.axs[0].set_xlim(xmin, 2*xmax)
+            self.axs[0].figure.canvas.draw()
+
         self.xdata.append(frame.timestamp)
         self.ydata.append(frame.explored_percent)
         self.ydata2.append(frame.explored_area)
 
         self.line.set_data(self.xdata, self.ydata)
         self.line2.set_data(self.xdata, self.ydata2)
+
+        # Lower plot
+        # Update x axes limits if needed
+        xmin, xmax = self.axs[1].get_xlim()
+        if frame.timestamp > xmax:
+            self.axs[1].set_xlim(xmin, 2*xmax)
+            self.axs[1].figure.canvas.draw()
+        ymin, ymax = self.axs[1].get_ylim()
+
+        for k, v in frame.paths.items():
+            # update y axes limits if needed
+            if v > ymax:
+                self.axs[1].set_ylim(ymin, 2*ymax)
+                self.axs[1].figure.canvas.draw()
+
+            if k not in self.paths_data:
+                self.paths_data[k] = ([], [])
+                self.path_lines[k] = self.axs[1].plot([], [], lw=2, label=k)
+            self.paths_data[k][0].append(frame.timestamp)
+            self.paths_data[k][1].append(v)
+            self.path_lines[k][0].set_data(self.paths_data[k])
+
         return self.line
 
 
@@ -129,6 +175,13 @@ class Evaluator(Node):
             qos_profile=1,
         )
 
+        self.create_subscription(
+            msg_type=PointStamped,
+            topic="/path_length",
+            callback=self.path_length_cbk,
+            qos_profile=1,
+        )
+
         self._timer: Timer
         self.create_service(Trigger, "/evaluator/start", self.start_cbk)
 
@@ -139,6 +192,12 @@ class Evaluator(Node):
     def occ_grid_cbk(self, msg: OccupancyGrid) -> None:
         """Callback for occupancy grid"""
         self.last_occ_grid = msg
+
+    def path_length_cbk(self, msg: PointStamped) -> None:
+        """Callback for path length"""
+        if self.plotting_data is not None:
+            self.plotting_data.paths[msg.header.frame_id.split(
+                "/")[0]] = msg.point.x
 
     def start_cbk(self, request: Trigger.Request, response: Trigger.Response) -> None:
         """Start the evaluation"""
@@ -156,8 +215,7 @@ class Evaluator(Node):
         """Evaluate the exploration"""
         self.plotting_data.occ_grid = self.last_occ_grid
         self.logger.info(self.plotting_data.log())
-
-        # TODO: ROS log landmarks each X seconds
+        self.get_logger().info(str(self.plotting_data), throttle_duration_sec=30.0)
 
 
 if __name__ == "__main__":
@@ -182,7 +240,7 @@ if __name__ == "__main__":
     evaluator = Evaluator(args.use_sim_time, args.log_file, args.verbose)
 
     if args.plot_data:
-        vis = Visualizer(x_lim=600, y_lim=400)  # 10 minutes
+        vis = Visualizer(area_max=400)
         ani = animation.FuncAnimation(vis.fig, vis.update_plot, evaluator.yield_viz,
                                       interval=1000, init_func=vis.init_plot)
 
