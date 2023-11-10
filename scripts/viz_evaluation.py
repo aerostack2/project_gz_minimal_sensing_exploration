@@ -44,7 +44,7 @@ def plot_area(ts, area_pct, area_m2):
     ax2.set_ylabel('area (m^2)')
     ax2.plot(ts, area_m2)
 
-    # fig.savefig("test.png")
+    fig.savefig("/tmp/area.png")
     fig.tight_layout()
     plt.show()
 
@@ -58,6 +58,8 @@ def plot_path(ts, paths):
     plt.xlabel('time (s)')
     plt.ylabel('path length (m)')
     plt.legend()
+    plt.grid()
+    plt.savefig("/tmp/path.png")
     plt.show()
 
 
