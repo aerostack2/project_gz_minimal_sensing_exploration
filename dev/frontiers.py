@@ -128,13 +128,10 @@ def get_frontiers(img: np.array, min_thresh: int = 10, max_thresh: int = 30) -> 
     unk_obs = cv2.erode(unk_obs, np.ones([3*it, 3*it]))
 
     # https://docs.opencv.org/4.x/dd/d1a/group__imgproc__feature.html#ga04723e007ed888ddf11d9ba04e2232de
-    edges = cv2.Canny(unk_obs, 250, 250)
+    edges = cv2.Canny(unk_obs, 100, 200)
 
     obstacles = np.copy(img)
     obstacles[obstacles == 128] = 255
-    drone_size = np.array([it] * 2).astype(int)
-    # cv2.rectangle(obstacles, [69, 99]-drone_size,
-    #               [69, 99] + drone_size, 0, -1)  # drone pose
     # one extra iteration to filter borders of map
     obstacles = cv2.erode(obstacles, np.ones([3*(it+1), 3*(it+1)]))
 
