@@ -106,6 +106,8 @@ windows:
             safety_distance:=0.3
             reached_dist_thresh:=0.2
             navigation_speed:=1.0
+        - ros2 launch as2_path_planning frontier_allocator.launch.py
+            use_sim_time:=true
   - evaluator:
       panes:
         - python scripts/evaluate.py -s -p
