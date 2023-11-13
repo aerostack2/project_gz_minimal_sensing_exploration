@@ -1,59 +1,79 @@
 """Visualize the exploration results"""
+from dataclasses import dataclass, field
+import json
 import matplotlib.pyplot as plt
 
 
-# TODO: Probably better to parse with json
-def append_path(paths: dict[str, list[float]], tokens: list[str]) -> None:
-    """Append path to paths dict"""
-    if len(tokens) < 2:
-        return
-    for i in range(0, len(tokens), 2):
-        if str(tokens[i][2:-2]) not in paths:
-            paths[str(tokens[i][2:-2])] = []
-        paths[str(tokens[i][2:-2])].append(float(tokens[i+1].strip()[:-1]))
+@dataclass
+class LogData:
+    """Data read from log file"""
+    timestamps: list[float] = field(default_factory=list)
+    area_pct: list[float] = field(default_factory=list)
+    area_m2: list[float] = field(default_factory=list)
+    paths: dict[str, list[float]] = field(default_factory=dict)
+
+    @classmethod
+    def from_log_file(cls, log_file: str):
+        """Read the log file"""
+        log_data = cls()
+        with open(log_file, "r", encoding='utf-8') as f:
+            for line in f.readlines():
+                ts, area, unknown, free, occupied, * \
+                    path_tokens = line.split(" ")
+                log_data.append_path(path_tokens)
+                log_data.timestamps.append(float(ts))
+                log_data.area_pct.append(100 * (int(free) + int(occupied)) /
+                                         (int(unknown) + int(free) + int(occupied)))
+                log_data.area_m2.append(float(area))
+        return log_data
+
+    def append_path(self, tokens: list[str]) -> None:
+        """Append path to paths dict"""
+        dict_read = json.loads(' '.join(tokens).replace("'", '"'))
+        for k, v in dict_read.items():
+            if k not in self.paths:
+                self.paths[k] = []
+            self.paths[k].append(v)
+
+    @property
+    def total_path_length(self) -> float:
+        """Total path length"""
+        length = 0
+        for v in self.paths.values():
+            length += v[-1]
+        return length
+
+    def __str__(self):
+        """Print stats"""
+        return f"""Total time: {self.timestamps[-1]}s\
+        Total area explored: {round(self.area_m2[-1], 2)}m^2 ({round(self.area_pct[-1], 2)}%)\
+        Total path length: {round(self.total_path_length, 2)}m
+        """
 
 
-def read_log(log_file: str) -> tuple[list[float], list[float]]:
-    """Read the log file"""
-    xdata = []  # time (s)
-    ydata = []  # area explored (%)
-    ydata_m2 = []  # area explored (m^2)
-    paths: dict[str, list[float]] = {}
-    with open(log_file, "r", encoding='utf-8') as f:
-        for line in f.readlines():
-            ts, area, unknown, free, occupied, *path_tokens = line.split(" ")
-            append_path(paths, path_tokens)
-            xdata.append(float(ts))
-            ydata.append(100 * (int(free) + int(occupied)) /
-                         (int(unknown) + int(free) + int(occupied)))
-            ydata_m2.append(float(area))
-
-    return xdata, ydata, ydata_m2, paths
-
-
-def plot_area(ts, area_pct, area_m2):
+def plot_area(data: LogData):
     """Plot area graph"""
     fig, ax = plt.subplots()
     ax.set_title('Exploration results')
     ax.set_xlabel('time (s)')
     ax.set_ylabel('area (%)')
     ax.grid()
-    ax.plot(ts, area_pct)
+    ax.plot(data.timestamps, data.area_pct)
 
     ax2 = ax.twinx()
     ax2.set_ylabel('area (m^2)')
-    ax2.plot(ts, area_m2)
+    ax2.plot(data.timestamps, data.area_m2)
 
     fig.savefig("/tmp/area.png")
     fig.tight_layout()
     plt.show()
 
 
-def plot_path(ts, paths):
+def plot_path(data: LogData):
     """Plot paths"""
-    for k, v in paths.items():
+    for k, v in data.paths.items():
         # FIXME: ts and v not same length
-        plt.plot(ts[1:], v, label=k)
+        plt.plot(data.timestamps[1:], v, label=k)
     plt.title('Path length')
     plt.xlabel('time (s)')
     plt.ylabel('path length (m)')
@@ -65,11 +85,12 @@ def plot_path(ts, paths):
 
 def main(log_file):
     """Main function"""
-    ts, area_pct, area_m2, paths = read_log(log_file)
+    data = LogData.from_log_file(log_file)
 
-    plot_area(ts, area_pct, area_m2)
-    plot_path(ts, paths)
+    print(data)
+    plot_area(data)
+    plot_path(data)
 
 
 if __name__ == "__main__":
-    main('logs/3drones_full_exploration_20231107_162109.log')
+    main('logs/3drones_1fail_full_exploration_20231110_143642.log')
