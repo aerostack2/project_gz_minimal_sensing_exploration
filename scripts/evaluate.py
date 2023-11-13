@@ -176,7 +176,7 @@ class Evaluator(Node):
 
         self.create_subscription(
             msg_type=OccupancyGrid,
-            topic="/map_server/map",
+            topic="/map_server/map_filtered",
             callback=self.occ_grid_cbk,
             qos_profile=1,
         )
