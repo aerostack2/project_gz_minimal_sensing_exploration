@@ -6,6 +6,7 @@ Panels:
       Expanded:
         - /Global Options1
         - /Status1
+        - /Marker1/Topic1
       Splitter Ratio: 0.5058823823928833
     Tree Height: 362
   - Class: rviz_common/Selection
@@ -526,6 +527,19 @@ Visualization Manager:
         History Policy: Keep Last
         Reliability Policy: Reliable
         Value: /drone1/debug/traj_generated
+      Value: true
+    - Class: rviz_default_plugins/Marker
+      Enabled: true
+      Name: Marker
+      Namespaces:
+        {}
+      Topic:
+        Depth: 75
+        Durability Policy: Volatile
+        Filter size: 10
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /marker
       Value: true
   Enabled: true
   Global Options:
