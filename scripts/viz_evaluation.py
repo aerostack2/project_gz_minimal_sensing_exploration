@@ -41,6 +41,7 @@ class LogData:
             total_path += v
         self.total_path.append(total_path)
 
+    # TODO: print stats at 25% 50% 75% 100% exploration
     def __str__(self):
         """Print stats"""
         return f"""{self.filename}
@@ -66,7 +67,7 @@ def plot_area(data: LogData, fig: plt.Figure = None) -> plt.Figure:
         ax = fig.axes[0]
         ax2 = fig.axes[1]
 
-    ax.plot(data.timestamps, data.area_pct, label=data.filename)
+    ax.plot(data.timestamps, data.area_pct, label=data.filename.stem)
     ax2.plot(data.timestamps, data.area_m2)
 
     fig.savefig("/tmp/area.png")
@@ -86,7 +87,7 @@ def plot_total_path(data: LogData, fig: plt.Figure = None) -> plt.Figure:
     else:
         ax = fig.axes[0]
 
-    ax.plot(data.timestamps, data.total_path, label=data.filename)
+    ax.plot(data.timestamps, data.total_path, label=data.filename.stem)
 
     ax.legend()
     fig.savefig("/tmp/total_path.png")
@@ -99,12 +100,12 @@ def plot_path(data: LogData):
     for k, v in data.paths.items():
         # FIXME: ts and v not same length
         ax.plot(data.timestamps[1:], v, label=k)
-    ax.set_title(f'Path length {data.filename}')
+    ax.set_title(f'Path length {data.filename.stem}')
     ax.set_xlabel('time (s)')
     ax.set_ylabel('path length (m)')
     ax.legend()
     ax.grid()
-    fig.savefig(f"/tmp/path_{data.filename}.png")
+    fig.savefig(f"/tmp/path_{data.filename.stem}.png")
     return fig
 
 
