@@ -1,14 +1,25 @@
 """Visualize the exploration results"""
+import bisect
 from dataclasses import dataclass, field
 import json
 from pathlib import Path
 import matplotlib.pyplot as plt
 
 
+def find_closest_index(a, x):
+    """https://stackoverflow.com/a/56335408/9553849"""
+    i = bisect.bisect_left(a, x)
+    if i >= len(a):
+        i = len(a) - 1
+    elif i and a[i] - x > x - a[i - 1]:
+        i = i - 1
+    return (i, a[i])
+
+
 @dataclass
 class LogData:
     """Data read from log file"""
-    filename: str
+    filename: Path
     timestamps: list[float] = field(default_factory=list)
     area_pct: list[float] = field(default_factory=list)
     area_m2: list[float] = field(default_factory=list)
@@ -41,14 +52,26 @@ class LogData:
             total_path += v
         self.total_path.append(total_path)
 
-    # TODO: print stats at 25% 50% 75% 100% exploration
     def __str__(self):
         """Print stats"""
-        return f"""{self.filename}
-        Total time: {round(self.timestamps[-1], 2)}s\
-        Total area explored: {round(self.area_m2[-1], 2)}m^2 ({round(self.area_pct[-1], 2)}%)\
-        Total path length: {round(self.total_path[-1], 2)}m
-        """
+        text = f"{self.filename.stem}\n"
+        text += f"{self.timestamps[-1]:8.2f}s "
+        text += f"{self.area_m2[-1]:8.2f}m^2 ({self.area_pct[-1]:5.2f}%) "
+        text += f"{self.total_path[-1]:8.2f}m\n"
+        return text
+
+    def stats(self, pct_step: float = 25.0):
+        """Print stats"""
+        text = "  %      Time[s]   Area[m2]    Path[m]\n"
+        text += "--------------------------------------\n"
+        pct = 0.0
+        while pct <= 100.0:
+            i, _ = find_closest_index(self.area_pct, pct)
+            text += f"{pct:3.0f}% {self.timestamps[i]:10.2f} "
+            text += f"{self.area_m2[i]:10.2f} {self.total_path[i]:10.2f}\n"
+            pct += pct_step
+
+        return text
 
 
 def plot_area(data: LogData, fig: plt.Figure = None) -> plt.Figure:
@@ -126,9 +149,11 @@ def main(log_file: str):
         fig = plot_area(data, fig)
         fig2 = plot_total_path(data, fig2)
 
-        plot_path(data)
+        # plot_path(data)
+        # print(data.stats(25.0))
     plt.show()
 
 
 if __name__ == "__main__":
     main('logs/')
+    # main('logs/3drones_exploration_20231113_125522.log')
