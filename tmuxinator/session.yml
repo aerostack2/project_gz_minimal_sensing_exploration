@@ -71,16 +71,17 @@ windows:
   - behaviors:
       layout:
       panes:
-        - ros2 launch as2_behaviors_motion motion_behaviors_launch.py
+        - ros2 launch as2_behaviors_motion composable_motion_behaviors.launch.py
             namespace:=<%= drone_namespace %>
             use_sim_time:=true
             follow_path_plugin_name:=follow_path_plugin_<%= behavior_type %>
             go_to_plugin_name:=go_to_plugin_<%= behavior_type %>
             takeoff_plugin_name:=takeoff_plugin_position
             land_plugin_name:=land_plugin_speed
-        - ros2 launch as2_behaviors_trajectory_generation generate_polynomial_trajectory_behavior_launch.py
+        - ros2 launch as2_behaviors_trajectory_generation composable_generate_polynomial_trajectory_behavior.launch.py
+            container:=behaviors
             namespace:=<%= drone_namespace %>
-            use_sim_time:=true
+            use_sim_time:=true && exit
   - path_planning:
       layout:
       panes:
@@ -98,16 +99,19 @@ windows:
             namespace:=<%= drone_namespace %>
             use_sim_time:=true
             use_path_optimizer:=false
-            safety_distance:=0.3
+            safety_distance:=0.4
         - ros2 launch as2_path_planning explorer.launch.py
             namespace:=<%= drone_namespace %>
             use_sim_time:=true
             frontier_min_area:=20
-            safety_distance:=0.3
+            safety_distance:=0.4
             reached_dist_thresh:=0.2
-            navigation_speed:=1.0
+            navigation_speed:=0.5
         - ros2 launch as2_path_planning frontier_allocator.launch.py
             use_sim_time:=true
+            safety_distance:=0.4
+            frontier_min_area:=20
+            frontier_max_area:=35
   - evaluator:
       panes:
         - python scripts/evaluate.py -s -p
