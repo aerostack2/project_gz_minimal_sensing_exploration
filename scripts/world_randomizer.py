@@ -7,9 +7,7 @@ import math
 from pathlib import Path
 import random
 from jinja2 import Environment, FileSystemLoader
-import matplotlib.pyplot as plt
-import numpy as np
-
+from world_visualizer import visualize_world
 
 __authors__ = "David Ho, Pedro Arias Perez"
 __license__ = "BSD-3-Clause"
@@ -91,7 +89,8 @@ def generate_world(world_name: str, num_world: int, num_object: int,
             world_name=world_name, models=obstacles)
 
         if visualize:
-            visualize_world(world_name, drone_xy, obstacles, safety_margin)
+            visualize_world(world_name, {'drone': drone_xy},
+                            obstacles)
 
         json_path = assets_path.joinpath(f"worlds/{world_name}.json")
         sdf_path = assets_path.joinpath(f"worlds/{world_name}.sdf")
@@ -105,29 +104,6 @@ def generate_world(world_name: str, num_world: int, num_object: int,
             sdf_file.write(sdf_output)
 
         print(f"World {i+1} has been saved")
-
-
-def visualize_world(name: str, drone_xy: tuple[float, float], objects: dict[str, list[float]],
-                    safety_margin: float) -> None:
-    """Visualize world in matplotlib"""
-    # pprint.pprint(world_output)
-
-    angles = np.linspace(0, 2 * np.pi, 100)
-    x_coords_0 = drone_xy[0] + safety_margin * np.cos(angles)
-    y_coords_0 = drone_xy[1] + safety_margin * np.sin(angles)
-
-    # plt.figure(figsize=(6, 6))
-    xpoints = [item[0] for item in objects.values()]
-    ypoints = [item[1] for item in objects.values()]
-    plt.plot(xpoints, ypoints, 'o')
-    plt.plot(drone_xy[0], drone_xy[1], 'D:r')
-    plt.plot(x_coords_0, y_coords_0, color='purple')
-    plt.axis('equal')  # Equal scaling for x and y axes
-    plt.xlabel('X-axis')
-    plt.ylabel('Y-axis')
-    plt.title(f"{name}")
-    plt.grid()
-    plt.show()
 
 
 def main():
