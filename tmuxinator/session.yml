@@ -88,30 +88,22 @@ windows:
         - ros2 launch as2_path_planning laserscan_to_occupancy_grid.launch.py
             namespace:=<%= drone_namespace %>
             use_sim_time:=true
-            map_resolution:=0.1
-            map_width:=200
-            map_height:=200
             output_topic:=/map_server/input_occupancy_grid
+            config_file:=sim_config/exploration.yaml
         - ros2 launch as2_path_planning map_server.launch.py
             namespace:=map_server
             use_sim_time:=true
         - ros2 launch as2_path_planning path_planner.launch.py
             namespace:=<%= drone_namespace %>
             use_sim_time:=true
-            use_path_optimizer:=false
-            safety_distance:=0.4
+            config_file:=sim_config/exploration.yaml
         - ros2 launch as2_path_planning explorer.launch.py
             namespace:=<%= drone_namespace %>
             use_sim_time:=true
-            frontier_min_area:=20
-            safety_distance:=0.4
-            reached_dist_thresh:=0.2
-            navigation_speed:=0.5
+            config_file:=sim_config/exploration.yaml
         - ros2 launch as2_path_planning frontier_allocator.launch.py
             use_sim_time:=true
-            safety_distance:=0.4
-            frontier_min_area:=20
-            frontier_max_area:=35
+            config_file:=sim_config/exploration.yaml
   - evaluator:
       panes:
         - python scripts/evaluate.py -s -p
