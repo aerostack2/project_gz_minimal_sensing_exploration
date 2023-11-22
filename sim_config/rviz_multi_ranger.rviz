@@ -229,7 +229,7 @@ Visualization Manager:
     - Alpha: 0.699999988079071
       Class: rviz_default_plugins/Map
       Color Scheme: map
-      Draw Behind: false
+      Draw Behind: true
       Enabled: true
       Name: LiveMap
       Topic:
@@ -314,7 +314,7 @@ Visualization Manager:
       Enabled: true
       Name: Path
       Namespaces:
-        {}
+        map_server: true
       Topic:
         Depth: 50
         Durability Policy: Volatile
@@ -327,7 +327,7 @@ Visualization Manager:
       Enabled: true
       Name: RefTrajPoint
       Namespaces:
-        {}
+        "": true
       Topic:
         Depth: 5
         Durability Policy: Volatile
@@ -368,7 +368,7 @@ Visualization Manager:
       Enabled: true
       Name: Frontiers
       Namespaces:
-        {}
+        frontier: true
       Topic:
         Depth: 50
         Durability Policy: Volatile
