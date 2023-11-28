@@ -2,15 +2,28 @@
 """explore.py"""
 
 import sys
+from datetime import datetime
 from time import sleep
 import rclpy
 from rclpy.task import Future
+from rclpy.serialization import serialize_message
 from rclpy import logging
 from rclpy.qos import qos_profile_sensor_data
 from as2_python_api.shared_data.twist_data import TwistData
+from as2_python_api.shared_data.pose_data import PoseData
 from as2_python_api.drone_interface import DroneInterface
+from as2_python_api.tools.utils import euler_from_quaternion
 from std_srvs.srv import SetBool, Trigger
-from geometry_msgs.msg import TwistStamped, PointStamped
+from geometry_msgs.msg import TwistStamped, PointStamped, PoseStamped
+
+from rosbag2_py import SequentialWriter, StorageOptions, ConverterOptions, TopicMetadata
+
+bag_writer = SequentialWriter()
+storage_options = StorageOptions(
+    uri=f"rosbags/{datetime.now().strftime('%Y%m%d_%H%M%S')}", storage_id="sqlite3")
+converter_options = ConverterOptions(
+    input_serialization_format="", output_serialization_format="")
+bag_writer.open(storage_options, converter_options)
 
 
 class Explorer(DroneInterface):
@@ -19,6 +32,7 @@ class Explorer(DroneInterface):
     def __init__(self, drone_id: str = "drone0", verbose: bool = False,
                  use_sim_time: bool = False) -> None:
         super().__init__(drone_id, verbose, use_sim_time)
+        self.namespace = drone_id
 
         self.explore_client = self.create_client(SetBool, "start_exploration")
 
@@ -33,6 +47,19 @@ class Explorer(DroneInterface):
         # Using PointStamped msg and avoiding custom msg
         self.path_length_pub = self.create_publisher(
             PointStamped, "/path_length", 10)
+
+        # Overriding pose methods to bag it
+        self.__pose = PoseData()
+        self.pose_sub = self.create_subscription(
+            PoseStamped, 'self_localization/pose', self.pose_cbk, qos_profile_sensor_data)
+
+        # Bagging
+        pose_topic_info = TopicMetadata(
+            name=f"/{self.namespace}/self_localization/pose",
+            type="geometry_msgs/msg/PoseStamped",
+            serialization_format="cdr"
+        )
+        bag_writer.create_topic(pose_topic_info)
 
     def explore(self) -> Future:
         """Call exploration service asynchronously and return a future"""
@@ -75,6 +102,25 @@ class Explorer(DroneInterface):
         self.path_length_pub.publish(msg)
 
         self._last_timestamp = timestamp
+
+    # TODO: not able to super() this method since it's private. Really needed to be private?
+    def pose_cbk(self, pose_msg: PoseStamped) -> None:
+        """pose stamped callback"""
+        self.__pose.position = [pose_msg.pose.position.x,
+                                pose_msg.pose.position.y,
+                                pose_msg.pose.position.z]
+
+        self.__pose.orientation = [
+            *euler_from_quaternion(
+                pose_msg.pose.orientation.x,
+                pose_msg.pose.orientation.y,
+                pose_msg.pose.orientation.z,
+                pose_msg.pose.orientation.w)]
+
+        # Bagging
+        bag_writer.write(f"/{self.namespace}/self_localization/pose",
+                         serialize_message(pose_msg),
+                         self.get_clock().now().nanoseconds)
 
 
 if __name__ == '__main__':
