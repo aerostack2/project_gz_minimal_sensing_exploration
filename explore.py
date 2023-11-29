@@ -2,11 +2,9 @@
 """explore.py"""
 
 import sys
-from datetime import datetime
 from time import sleep
 import rclpy
 from rclpy.task import Future
-from rclpy.serialization import serialize_message
 from rclpy import logging
 from rclpy.qos import qos_profile_sensor_data
 from as2_python_api.shared_data.twist_data import TwistData
@@ -15,15 +13,6 @@ from as2_python_api.drone_interface import DroneInterface
 from as2_python_api.tools.utils import euler_from_quaternion
 from std_srvs.srv import SetBool, Trigger
 from geometry_msgs.msg import TwistStamped, PointStamped, PoseStamped
-
-from rosbag2_py import SequentialWriter, StorageOptions, ConverterOptions, TopicMetadata
-
-bag_writer = SequentialWriter()
-storage_options = StorageOptions(
-    uri=f"rosbags/{datetime.now().strftime('%Y%m%d_%H%M%S')}", storage_id="sqlite3")
-converter_options = ConverterOptions(
-    input_serialization_format="", output_serialization_format="")
-bag_writer.open(storage_options, converter_options)
 
 
 class Explorer(DroneInterface):
@@ -44,22 +33,17 @@ class Explorer(DroneInterface):
         self.twist_sub = self.create_subscription(
             TwistStamped, 'self_localization/twist', self.twist_cbk, qos_profile_sensor_data)
 
-        # Using PointStamped msg and avoiding custom msg
-        self.path_length_pub = self.create_publisher(
-            PointStamped, "/path_length", 10)
-
-        # Overriding pose methods to bag it
+        # Overriding pose methods to republish to evaluator
         self.__pose = PoseData()
         self.pose_sub = self.create_subscription(
             PoseStamped, 'self_localization/pose', self.pose_cbk, qos_profile_sensor_data)
 
-        # Bagging
-        pose_topic_info = TopicMetadata(
-            name=f"/{self.namespace}/self_localization/pose",
-            type="geometry_msgs/msg/PoseStamped",
-            serialization_format="cdr"
-        )
-        bag_writer.create_topic(pose_topic_info)
+        # PUBLISHERS FOR EVALUATOR
+        # Using PointStamped msg and avoiding custom msg
+        self.path_length_pub = self.create_publisher(
+            PointStamped, "/eval/path_length", 10)
+        self.poses_pub = self.create_publisher(
+            PointStamped, "/eval/poses", 10)
 
     def explore(self) -> Future:
         """Call exploration service asynchronously and return a future"""
@@ -117,10 +101,13 @@ class Explorer(DroneInterface):
                 pose_msg.pose.orientation.z,
                 pose_msg.pose.orientation.w)]
 
-        # Bagging
-        bag_writer.write(f"/{self.namespace}/self_localization/pose",
-                         serialize_message(pose_msg),
-                         self.get_clock().now().nanoseconds)
+        msg = PointStamped()
+        msg.header = pose_msg.header
+        # NOTE: frame_id is not overwritten in the evaluator with earth.
+        # Not a good practice, just to avoid creating new msg
+        msg.header.frame_id = self.namespace
+        msg.point = pose_msg.pose.position
+        self.poses_pub.publish(msg)
 
 
 if __name__ == '__main__':
