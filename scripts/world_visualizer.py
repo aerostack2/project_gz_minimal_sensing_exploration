@@ -5,6 +5,8 @@ import json
 from pathlib import Path
 import xml.etree.ElementTree as ET
 import matplotlib.pyplot as plt
+from matplotlib.figure import Figure
+from viz_evaluation import LogData
 
 Pose2D = tuple[float, float]
 
@@ -32,22 +34,49 @@ def parse_xml(filename: str) -> dict[str, Pose2D]:
     return models
 
 
-def visualize_world(name: str, drones: dict[str, Pose2D],
-                    objects: dict[str, Pose2D]) -> None:
-    """Visualize world in matplotlib"""
+class WorldFigure:
+    """World matplotlib figure"""
 
-    drone_xs = [item[0] for item in drones.values()]
-    drone_ys = [item[1] for item in drones.values()]
-    xpoints = [item[0] for item in objects.values()]
-    ypoints = [item[1] for item in objects.values()]
-    plt.plot([10, 10, -10, -10, 10], [10, -10, -10, 10, 10], 'k-')
-    plt.plot(xpoints, ypoints, 'o')
-    plt.plot(drone_xs, drone_ys, 'rD')
-    plt.axis('equal')  # Equal scaling for x and y axes
-    plt.xlabel('X-axis')
-    plt.ylabel('Y-axis')
-    plt.title(f"{name}")
-    plt.show()
+    def __init__(self, name: str) -> None:
+        fig: Figure = plt.figure(name)
+        side_length: float = 10.0
+
+        self.main_plot = fig.add_subplot(1, 1, 1)
+        self.main_plot.axis('equal')
+        self.main_plot.set_xlabel('X-axis')
+        self.main_plot.set_ylabel('Y-axis')
+        self.main_plot.set_title(f"{name}")
+
+        # Draw world boundaries
+        self.main_plot.plot([side_length, side_length, -side_length, -side_length, side_length],
+                            [side_length, -side_length, -side_length,
+                                side_length, side_length],
+                            'k-')
+
+    def draw_drones(self, drones: dict[str, Pose2D], color: str = 'rD') -> None:
+        """Draw drones on plot"""
+        drone_xs = [item[0] for item in drones.values()]
+        drone_ys = [item[1] for item in drones.values()]
+        self.main_plot.plot(drone_xs, drone_ys, color)
+
+    def draw_obstacles(self, obstacles: dict[str, Pose2D], color: str = 'o') -> None:
+        """Draw obstacles on plot"""
+        xpoints = [item[0] for item in obstacles.values()]
+        ypoints = [item[1] for item in obstacles.values()]
+        self.main_plot.plot(xpoints, ypoints, color)
+
+    def draw_paths(self, paths: dict[str, Pose2D], color: str = 'b') -> None:
+        """Draw paths on plot"""
+        for path in paths.values():
+            x, y = [], []
+            for msg in path:
+                x.append(msg[0])
+                y.append(msg[1])
+            self.main_plot.plot(x, y, color)
+
+    def show(self) -> None:
+        """Show plot"""
+        plt.show()
 
 
 def main(json_filename: str):
@@ -58,10 +87,17 @@ def main(json_filename: str):
 
     xml_filename = Path(json_filename).parent / f"{world_name}.sdf"
     poles = parse_xml(xml_filename)
-    visualize_world(world_name, drones, poles)
+
+    fig = WorldFigure("World")
+    fig.draw_drones(drones)
+    fig.draw_obstacles(poles)
+
+    data = LogData.from_rosbag("rosbags/exploration_20231129_140425")
+    fig.draw_paths(data.poses)
+    fig.show()
 
 
 if __name__ == "__main__":
     # main("assets/worlds/world_multi_ranger1.json")
-    # main("assets/worlds/world_two_multi_ranger1.json")
-    main("assets/worlds/world_three_multi_ranger1.json")
+    main("assets/worlds/world_two_multi_ranger1.json")
+    # main("assets/worlds/world_three_multi_ranger1.json")
