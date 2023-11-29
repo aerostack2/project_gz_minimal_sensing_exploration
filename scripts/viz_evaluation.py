@@ -1,9 +1,15 @@
 """Visualize the exploration results"""
 import bisect
 from dataclasses import dataclass, field
-import json
 from pathlib import Path
+import numpy as np
 import matplotlib.pyplot as plt
+
+from geometry_msgs.msg import PointStamped
+from nav_msgs.msg import OccupancyGrid
+from std_msgs.msg import Header
+
+from bag_reader import read_rosbag, deserialize_msgs
 
 
 def find_closest_index(a, x):
@@ -18,39 +24,67 @@ def find_closest_index(a, x):
 
 @dataclass
 class LogData:
-    """Data read from log file"""
+    """Data read from rosbag file"""
     filename: Path
     timestamps: list[float] = field(default_factory=list)
     area_pct: list[float] = field(default_factory=list)
     area_m2: list[float] = field(default_factory=list)
     paths: dict[str, list[float]] = field(default_factory=dict)
     total_path: list[float] = field(default_factory=list)
+    poses: dict[str, list[tuple[float, float]]] = field(default_factory=dict)
 
     @classmethod
-    def from_log_file(cls, log_file: str):
-        """Read the log file"""
-        log_data = cls(log_file)
-        with open(log_file, "r", encoding='utf-8') as f:
-            for line in f.readlines():
-                ts, area, unknown, free, occupied, * \
-                    path_tokens = line.split(" ")
-                log_data.append_path(path_tokens)
-                log_data.timestamps.append(float(ts))
-                log_data.area_pct.append(100 * (int(free) + int(occupied)) /
-                                         (int(unknown) + int(free) + int(occupied)))
-                log_data.area_m2.append(float(area))
+    def from_rosbag(cls, rosbag: Path) -> 'LogData':
+        """Read the rosbag"""
+        log_data = cls(rosbag)
+        rosbag_msgs = read_rosbag(str(rosbag))
+        for topic, msgs in rosbag_msgs.items():
+            if topic == "/map_server/map_filtered":
+                grids = deserialize_msgs(msgs, OccupancyGrid)
+                ts0 = log_data.parse_timestamp(grids[0].header)
+                for grid in grids:
+                    log_data.timestamps.append(
+                        log_data.parse_timestamp(grid.header) - ts0)
+                    area, pct = log_data.parse_grid(grid)
+                    log_data.area_pct.append(pct)
+                    log_data.area_m2.append(area)
+            elif "path_length" in topic:
+                path_length = deserialize_msgs(msgs, PointStamped)
+                drone_id = topic.split("/")[1]
+                log_data.paths[drone_id] = [msg.point.x for msg in path_length]
+                if not log_data.total_path:
+                    log_data.total_path = log_data.paths[drone_id]
+                else:
+                    log_data.total_path = np.add(
+                        log_data.total_path, log_data.paths[drone_id]).tolist()
+            elif "pose" in topic:
+                poses = deserialize_msgs(msgs, PointStamped)
+                drone_id = topic.split("/")[1]
+                log_data.poses[drone_id] = [(msg.point.x, msg.point.y)
+                                            for msg in poses]
+            else:
+                print(f"Unknown topic: {topic}")
         return log_data
 
-    def append_path(self, tokens: list[str]) -> None:
-        """Append path to paths dict"""
-        dict_read = json.loads(' '.join(tokens).replace("'", '"'))
-        total_path = 0
-        for k, v in dict_read.items():
-            if k not in self.paths:
-                self.paths[k] = []
-            self.paths[k].append(v)
-            total_path += v
-        self.total_path.append(total_path)
+    def parse_timestamp(self, header: Header) -> float:
+        """Parse timestamp from header"""
+        return header.stamp.sec + header.stamp.nanosec * 1e-9
+
+    def parse_grid(self, grid: OccupancyGrid) -> tuple[float, float]:
+        """Parse grid to get area and percentage"""
+        size = grid.info.width * grid.info.height
+        unique, counts = np.unique(grid.data, return_counts=True)
+        unknown, free, occupied = 0, 0, 0
+        for k, v in dict(zip(unique, counts)).items():
+            if k == -1:
+                unknown += v
+            elif k > 20:
+                occupied += v
+            else:
+                free += v
+        pct = 100 * (free + occupied) / (unknown + free + occupied)
+        area = (size - unknown) * grid.info.resolution * grid.info.resolution
+        return area, pct
 
     def __str__(self):
         """Print stats"""
@@ -121,8 +155,7 @@ def plot_path(data: LogData):
     """Plot paths"""
     fig, ax = plt.subplots()
     for k, v in data.paths.items():
-        # FIXME: ts and v not same length
-        ax.plot(data.timestamps[1:], v, label=k)
+        ax.plot(data.timestamps, v, label=k)
     ax.set_title(f'Path length {data.filename.stem}')
     ax.set_xlabel('time (s)')
     ax.set_ylabel('path length (m)')
@@ -135,15 +168,17 @@ def plot_path(data: LogData):
 def main(log_file: str):
     """Main function"""
     if Path(log_file).is_dir():
-        log_files = Path(log_file).glob("*.log")
+        log_files = list(Path(log_file).iterdir())
+        for child in Path(log_file).iterdir():
+            if child.is_file() and child.suffix == ".db3":
+                log_files = [Path(log_file)]
+                break
     elif Path(log_file).is_file():
-        log_files = [Path(log_file)]
-    else:
-        raise FileNotFoundError(f"File not found: {log_file}")
+        raise NotADirectoryError(f"{log_file} is not a directory")
 
     fig, fig2 = None, None
     for log in log_files:
-        data = LogData.from_log_file(log)
+        data = LogData.from_rosbag(log)
 
         print(data)
         fig = plot_area(data, fig)
@@ -155,5 +190,5 @@ def main(log_file: str):
 
 
 if __name__ == "__main__":
-    main('logs/')
-    # main('logs/3drones_exploration_20231113_125522.log')
+    main('rosbags/')
+    # main('rosbags/exploration_20231129_140425')

@@ -1,7 +1,6 @@
 """Exploring evaluation script"""
 
 import sys
-import logging
 import argparse
 import threading
 from datetime import datetime
@@ -12,11 +11,13 @@ from rclpy.node import Node
 from rclpy.timer import Timer
 from rclpy.time import Time
 from rclpy.parameter import Parameter
+from rclpy.serialization import serialize_message
 from nav_msgs.msg import OccupancyGrid
 from std_srvs.srv import Trigger
 from geometry_msgs.msg import PointStamped
 import matplotlib.pyplot as plt
 from matplotlib import animation
+from rosbag2_py import SequentialWriter, StorageOptions, ConverterOptions, TopicMetadata
 
 
 @dataclass
@@ -31,20 +32,6 @@ class PlottingData:
 
     def __str__(self) -> str:
         return f"[{self.timestamp}] Explored {round(self.explored_area, 2)} m2 ({round(self.explored_percent, 2)}%) paths={self.paths})"
-
-    def log(self) -> str:
-        """Return a log string"""
-        unkown_cells = 0
-        free_cells = 0
-        occupied_cells = 0
-        for k, v in self.counter.items():
-            if k == -1:
-                unkown_cells += v
-            elif k > 20:
-                occupied_cells += v
-            else:
-                free_cells += v
-        return f"{self.timestamp} {self.explored_area} {unkown_cells} {free_cells} {occupied_cells} {self.paths}"
 
     @property
     def timestamp(self) -> str:
@@ -164,12 +151,6 @@ class Evaluator(Node):
             'use_sim_time', Parameter.Type.BOOL, use_sim_time)
         self.set_parameters([self.param_use_sim_time])
 
-        self.logger = logging.Logger("evaluator")
-        self.logger.setLevel(logging.INFO)
-        if verbose:
-            self.logger.addHandler(logging.StreamHandler(sys.stdout))
-        self.logger.addHandler(logging.FileHandler(log_file, mode="w"))
-
         self.plotting_data: PlottingData = None
         self.last_occ_grid: OccupancyGrid
         self.start_timestamp: Time
@@ -181,15 +162,33 @@ class Evaluator(Node):
             qos_profile=1,
         )
 
+        self.path_length_msgs = {}
         self.create_subscription(
             msg_type=PointStamped,
-            topic="/path_length",
+            topic="/eval/path_length",
             callback=self.path_length_cbk,
+            qos_profile=1,
+        )
+
+        self.poses_msgs = {}
+        self.create_subscription(
+            msg_type=PointStamped,
+            topic="/eval/poses",
+            callback=self.poses_cbk,
             qos_profile=1,
         )
 
         self._timer: Timer
         self.create_service(Trigger, "/evaluator/start", self.start_cbk)
+
+        # Bagger
+        self.bag_topics = set()
+        self.bag_writer = SequentialWriter()
+        storage_options = StorageOptions(
+            uri=f"rosbags/{log_file}", storage_id="sqlite3")
+        converter_options = ConverterOptions(
+            input_serialization_format="", output_serialization_format="")
+        self.bag_writer.open(storage_options, converter_options)
 
     def yield_viz(self):
         """Yield last time and percentage explored. Used for plotting"""
@@ -201,9 +200,18 @@ class Evaluator(Node):
 
     def path_length_cbk(self, msg: PointStamped) -> None:
         """Callback for path length"""
+        drone_id = msg.header.frame_id.split("/")[0]
         if self.plotting_data is not None:
-            self.plotting_data.paths[msg.header.frame_id.split(
-                "/")[0]] = msg.point.x
+            self.plotting_data.paths[drone_id] = msg.point.x
+
+        self.path_length_msgs[drone_id] = msg
+
+    def poses_cbk(self, pose_msg: PointStamped) -> None:
+        """pose stamped callback"""
+        drone_id = pose_msg.header.frame_id
+        pose_msg.header.frame_id = "earth"
+
+        self.poses_msgs[drone_id] = pose_msg
 
     def start_cbk(self, request: Trigger.Request, response: Trigger.Response) -> None:
         """Start the evaluation"""
@@ -211,6 +219,16 @@ class Evaluator(Node):
         self._timer = self.create_timer(2.0, self.evaluate)
 
         self.plotting_data = PlottingData(self.last_occ_grid)
+        # Register topics to bag
+        for pl_drone_id in self.path_length_msgs:
+            self.register_topic_to_bag(
+                f"/{pl_drone_id}/path_length", "geometry_msgs/msg/PointStamped")
+        for p_drone_id in self.poses_msgs:
+            self.register_topic_to_bag(
+                f"/{p_drone_id}/pose", "geometry_msgs/msg/PointStamped")
+        self.register_topic_to_bag(
+            "/map_server/map_filtered", "nav_msgs/msg/OccupancyGrid")
+
         self.evaluate()
 
         response.success = True
@@ -219,13 +237,39 @@ class Evaluator(Node):
     def evaluate(self) -> None:
         """Evaluate the exploration"""
         self.plotting_data.occ_grid = self.last_occ_grid
-        self.logger.info(self.plotting_data.log())
+
         self.get_logger().info(str(self.plotting_data), throttle_duration_sec=30.0)
+
+        # Bagging
+        self.bag_writer.write("/map_server/map_filtered",
+                              serialize_message(self.last_occ_grid),
+                              self.get_clock().now().nanoseconds)
+
+        for pl_drone_id, pl_msg in self.path_length_msgs.items():
+            self.bag_writer.write(f"/{pl_drone_id}/path_length",
+                                  serialize_message(pl_msg),
+                                  self.get_clock().now().nanoseconds)
+
+        for p_drone_id, p_msg in self.poses_msgs.items():
+            self.bag_writer.write(f"/{p_drone_id}/pose",
+                                  serialize_message(p_msg),
+                                  self.get_clock().now().nanoseconds)
+
+    def register_topic_to_bag(self, topic: str, msg_type: str) -> None:
+        """Register topic to bag"""
+        if topic in self.bag_topics:
+            return
+        topic_info = TopicMetadata(
+            name=topic,
+            type=msg_type,
+            serialization_format="cdr"
+        )
+        self.bag_writer.create_topic(topic_info)
 
 
 if __name__ == "__main__":
     now = datetime.now().strftime("%Y%m%d_%H%M%S")
-    log_file_default = f"exploration_{now}.log"
+    log_file_default = f"exploration_{now}"
 
     parser = argparse.ArgumentParser(
         prog="evaluate.py", description="Evaluate exploration", add_help=True)
@@ -244,6 +288,7 @@ if __name__ == "__main__":
     print("Saving log at", args.log_file)
     evaluator = Evaluator(args.use_sim_time, args.log_file, args.verbose)
 
+    # FIXME: bag_writer not working with rclpy.spin in thread, joining?
     if args.plot_data:
         vis = Visualizer(area_max=400)
         ani = animation.FuncAnimation(vis.fig, vis.update_plot, evaluator.yield_viz,
