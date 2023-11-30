@@ -93,6 +93,7 @@ windows:
         - ros2 launch as2_path_planning map_server.launch.py
             namespace:=map_server
             use_sim_time:=true
+            config_file:=sim_config/exploration.yaml
         - ros2 launch as2_path_planning path_planner.launch.py
             namespace:=<%= drone_namespace %>
             use_sim_time:=true
