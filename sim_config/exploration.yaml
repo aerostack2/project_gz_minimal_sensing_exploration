@@ -31,4 +31,4 @@
         # safety_distance: 0.4
 
         # Safeguard
-        drone_safety_distance: 6.0
+        drone_safety_distance: 2.0
