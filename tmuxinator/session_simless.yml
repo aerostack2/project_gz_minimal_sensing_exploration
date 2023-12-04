@@ -6,8 +6,6 @@ simulation_config   = @settings["simulation_config"]
 # Other parameters
 use_sim_time                = true
 estimator_plugin            = "ground_truth"
-behavior_type               = "position"
-behavior_type               = "trajectory"
 motion_controller_plugin    = "pid_speed_controller"
 simulation                  = "false"
 
@@ -69,8 +67,8 @@ windows:
         - ros2 launch as2_behaviors_motion motion_behaviors_launch.py
             namespace:=<%= drone_namespace %>
             use_sim_time:=true
-            follow_path_plugin_name:=follow_path_plugin_<%= behavior_type %>
-            go_to_plugin_name:=go_to_plugin_<%= behavior_type %>
+            follow_path_plugin_name:=follow_path_plugin_trajectory
+            go_to_plugin_name:=go_to_plugin_position
             takeoff_plugin_name:=takeoff_plugin_position
             land_plugin_name:=land_plugin_speed
         - ros2 launch as2_behaviors_trajectory_generation generate_polynomial_trajectory_behavior_launch.py
