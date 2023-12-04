@@ -15,6 +15,7 @@ from rclpy.serialization import serialize_message
 from nav_msgs.msg import OccupancyGrid
 from std_srvs.srv import Trigger
 from geometry_msgs.msg import PointStamped
+from grid_map_msgs.msg import GridMap
 import matplotlib.pyplot as plt
 from matplotlib import animation
 from rosbag2_py import SequentialWriter, StorageOptions, ConverterOptions, TopicMetadata
@@ -153,12 +154,20 @@ class Evaluator(Node):
 
         self.plotting_data: PlottingData = None
         self.last_occ_grid: OccupancyGrid
+        self.last_grid_map: GridMap
         self.start_timestamp: Time
 
         self.create_subscription(
             msg_type=OccupancyGrid,
             topic="/map_server/map_filtered",
             callback=self.occ_grid_cbk,
+            qos_profile=1,
+        )
+
+        self.create_subscription(
+            msg_type=GridMap,
+            topic="/map_server/grid_map",
+            callback=self.grid_map_cbk,
             qos_profile=1,
         )
 
@@ -198,6 +207,10 @@ class Evaluator(Node):
         """Callback for occupancy grid"""
         self.last_occ_grid = msg
 
+    def grid_map_cbk(self, msg: GridMap) -> None:
+        """Callback for grid map"""
+        self.last_grid_map = msg
+
     def path_length_cbk(self, msg: PointStamped) -> None:
         """Callback for path length"""
         drone_id = msg.header.frame_id.split("/")[0]
@@ -220,14 +233,16 @@ class Evaluator(Node):
 
         self.plotting_data = PlottingData(self.last_occ_grid)
         # Register topics to bag
+        self.register_topic_to_bag(
+            "/map_server/map_filtered", "nav_msgs/msg/OccupancyGrid")
+        self.register_topic_to_bag(
+            "/map_server/grid_map", "grid_map_msgs/msg/GridMap")
         for pl_drone_id in self.path_length_msgs:
             self.register_topic_to_bag(
                 f"/{pl_drone_id}/path_length", "geometry_msgs/msg/PointStamped")
         for p_drone_id in self.poses_msgs:
             self.register_topic_to_bag(
                 f"/{p_drone_id}/pose", "geometry_msgs/msg/PointStamped")
-        self.register_topic_to_bag(
-            "/map_server/map_filtered", "nav_msgs/msg/OccupancyGrid")
 
         self.evaluate()
 
@@ -243,6 +258,10 @@ class Evaluator(Node):
         # Bagging
         self.bag_writer.write("/map_server/map_filtered",
                               serialize_message(self.last_occ_grid),
+                              self.get_clock().now().nanoseconds)
+
+        self.bag_writer.write("/map_server/grid_map",
+                              serialize_message(self.last_grid_map),
                               self.get_clock().now().nanoseconds)
 
         for pl_drone_id, pl_msg in self.path_length_msgs.items():
