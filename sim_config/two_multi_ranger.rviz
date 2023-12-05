@@ -4,8 +4,6 @@ Panels:
     Name: Displays
     Property Tree Widget:
       Expanded:
-        - /Global Options1
-        - /Status1
         - /Marker1/Topic1
       Splitter Ratio: 0.5058823823928833
     Tree Height: 362
@@ -540,6 +538,58 @@ Visualization Manager:
         History Policy: Keep Last
         Reliability Policy: Reliable
         Value: /marker
+      Value: true
+    - Alpha: 1
+      Autocompute Intensity Bounds: true
+      Class: grid_map_rviz_plugin/GridMap
+      Color: 153; 193; 241
+      Color Layer: /drone0
+      Color Transformer: IntensityLayer
+      Enabled: true
+      Height Layer: /drone0
+      Height Transformer: Flat
+      History Length: 1
+      Invert Rainbow: false
+      Max Color: 0; 0; 0
+      Max Intensity: 10
+      Min Color: 153; 193; 241
+      Min Intensity: 0
+      Name: GridMap
+      Show Grid Lines: false
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        Filter size: 10
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /map_server/grid_map
+      Use Rainbow: false
+      Value: true
+    - Alpha: 1
+      Autocompute Intensity Bounds: true
+      Class: grid_map_rviz_plugin/GridMap
+      Color: 246; 97; 81
+      Color Layer: /drone1
+      Color Transformer: IntensityLayer
+      Enabled: true
+      Height Layer: /drone1
+      Height Transformer: Flat
+      History Length: 1
+      Invert Rainbow: false
+      Max Color: 0; 0; 0
+      Max Intensity: 10
+      Min Color: 246; 97; 81
+      Min Intensity: 0
+      Name: GridMap
+      Show Grid Lines: false
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        Filter size: 10
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /map_server/grid_map
+      Use Rainbow: false
       Value: true
   Enabled: true
   Global Options:
