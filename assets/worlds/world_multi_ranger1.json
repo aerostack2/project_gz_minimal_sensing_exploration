@@ -1,0 +1,26 @@
+{
+    "world_name": "world1",
+    "drones": [
+        {
+            "model_type": "quadrotor_base",
+            "model_name": "drone0",
+            "xyz": [
+                0.15,
+                2.65,
+                0.3
+            ],
+            "rpy": [
+                0,
+                0,
+                0.0
+            ],
+            "payload": [
+                {
+                    "model_type": "multi_ranger",
+                    "model_name": "lidar",
+                    "xyz": [0, 0, 0]
+                  }
+            ]
+        }
+    ]
+}
