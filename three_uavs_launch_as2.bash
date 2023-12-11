@@ -2,18 +2,14 @@
 
 usage() {
     echo "  options:"
-    echo "      -m: use multi ranger sensor"
-    echo "      -i: choose world instance (default: '')"
+    echo "      -i: choose world instance (default: '60')"
     echo "      -r: record rosbag"
     echo "      -t: launch keyboard teleoperation"
 }
 
 # Arg parser
-while getopts "mi:rt" opt; do
+while getopts "i:rt" opt; do
   case ${opt} in
-    m )
-      modifier="_multi_ranger"
-      ;;
     i )
       instance="${OPTARG}"
       ;;
@@ -49,11 +45,11 @@ export IGN_GAZEBO_RESOURCE_PATH=$PWD/assets/worlds:$PWD/assets/models:$IGN_GAZEB
 ## DEFAULTS
 record_rosbag=${record_rosbag:="false"}
 launch_keyboard_teleop=${launch_keyboard_teleop:="false"}
-instance=${instance:=""}
+instance=${instance:="60"}
 
 estimator_plugin="ground_truth"
-simulation_config="assets/worlds/world_three${modifier}${instance}.json"
-rviz_config="sim_config/three${modifier}.rviz"
+simulation_config="assets/worlds/world${instance}_three_drone.json"
+rviz_config="assets/rviz/three_drone.rviz"
 
 tmuxinator start -p tmuxinator/session.yml \
       drone_namespace="drone0" \
