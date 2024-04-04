@@ -1,27 +1,15 @@
 #!/bin/bash
 
 usage() {
-    echo "Usage: $0 [-i <instance>] [-2] [-3] [-r] [-t]"
+    echo "Usage: $0 [-r] [-t]"
     echo "  options:"
-    echo "      -i: choose world instance (default: '60')"
-    echo "      -2: launch two drones"
-    echo "      -3: launch three drones"
     echo "      -r: record rosbag"
     echo "      -t: launch keyboard teleoperation"
 }
 
 # Arg parser
-while getopts "23i:rth" opt; do
+while getopts "rth" opt; do
     case ${opt} in
-        2 )
-            n_drones="two"
-            ;;
-        3 )
-            n_drones="three"
-            ;;
-        i )
-            instance="${OPTARG}"
-            ;;
         r )
             record_rosbag="true"
             ;;
@@ -56,15 +44,21 @@ export IGN_GAZEBO_RESOURCE_PATH=$PWD/assets/worlds:$PWD/assets/models:$IGN_GAZEB
 ## DEFAULTS
 record_rosbag=${record_rosbag:="false"}
 launch_keyboard_teleop=${launch_keyboard_teleop:="false"}
-instance=${instance:="60"}
-n_drones=${n_drones:="one"}
+
+# CHOOSE SIMULATION CONFIG FILE
+echo "Choose simulation config file to open:"
+cat -n <(ls -1 assets/worlds/*.json) # list json files
+simulation_config=$(python utils/pick_sim_config.py assets/worlds | tail -n 1)
+if [[ ${simulation_config} == "Invalid" ]]; then
+    echo "Invalid option" >&2
+    exit 1
+fi
 
 estimator_plugin="ground_truth"
-simulation_config="assets/worlds/world${instance}_${n_drones}_drone.json"
-rviz_config="assets/rviz/${n_drones}_drone.rviz"
+rviz_config="assets/rviz/three_drone.rviz"
 
 # Get drone namespaces from swarm config file
-drones=$(python utils/get_drones.py ${simulation_config}) 
+drones=$(python utils/get_drones.py ${simulation_config})
 
 tmuxinator start -p tmuxinator/aerostack2.yml \
     drones=${drones} \
