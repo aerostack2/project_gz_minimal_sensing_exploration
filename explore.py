@@ -22,6 +22,7 @@ class Explorer(DroneInterface):
                  use_sim_time: bool = False) -> None:
         super().__init__(drone_id, verbose, use_sim_time)
         self.namespace = drone_id
+        self.crashed = False
 
         self.explore_client = self.create_client(SetBool, "start_exploration")
 
@@ -90,6 +91,9 @@ class Explorer(DroneInterface):
     # TODO: not able to super() this method since it's private. Really needed to be private?
     def pose_cbk(self, pose_msg: PoseStamped) -> None:
         """pose stamped callback"""
+        if round(pose_msg.pose.position.z, 1) == 0.0 and pose_msg.header.stamp.sec > 100:
+            self.crashed = True
+
         self.__pose.position = [pose_msg.pose.position.x,
                                 pose_msg.pose.position.y,
                                 pose_msg.pose.position.z]
@@ -150,11 +154,18 @@ if __name__ == '__main__':
     logging.get_logger("rclpy").info("Exploring")
     while not all((fut.done() for fut in futures)):
         sleep(0.5)
+        if any((scout.crashed for scout in scouts)):
+            logging.get_logger("rclpy").error(
+                f"Crash detected for {scout.drone_id}")
+            for fut in futures:
+                fut.cancel()
+            break
 
-    logging.get_logger("rclpy").info("Landing")
-    for scout in scouts:
-        wait = scout == scouts[-1]
-        scout.land(wait=wait)
+    if not any(scout.crashed for scout in scouts):
+        logging.get_logger("rclpy").info("Landing")
+        for scout in scouts:
+            wait = scout == scouts[-1]
+            scout.land(wait=wait)
 
     for scout in scouts:
         scout.disarm()
