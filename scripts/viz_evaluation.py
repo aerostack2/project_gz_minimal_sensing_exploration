@@ -8,6 +8,7 @@ import matplotlib.pyplot as plt
 from geometry_msgs.msg import PointStamped
 from nav_msgs.msg import OccupancyGrid
 from std_msgs.msg import Header
+from grid_map_msgs.msg import GridMap, GridMapInfo
 
 from bag_reader import read_rosbag, deserialize_msgs
 
@@ -32,6 +33,8 @@ class LogData:
     paths: dict[str, list[float]] = field(default_factory=dict)
     total_path: list[float] = field(default_factory=list)
     poses: dict[str, list[tuple[float, float]]] = field(default_factory=dict)
+    grids: dict[str, tuple[np.ndarray, GridMapInfo]
+                ] = field(default_factory=dict)
 
     @classmethod
     def from_rosbag(cls, rosbag: Path) -> 'LogData':
@@ -62,6 +65,20 @@ class LogData:
                 drone_id = topic.split("/")[1]
                 log_data.poses[drone_id] = [(msg.point.x, msg.point.y)
                                             for msg in poses]
+            elif topic == "/map_server/grid_map":
+                grid_map: GridMap = deserialize_msgs(msgs, GridMap)[-1]
+                for layer in grid_map.layers:
+                    idx = grid_map.layers.index(layer)
+                    data = np.array(grid_map.data[idx].data, dtype=np.float64)
+                    data = data.reshape((int(grid_map.info.length_x/grid_map.info.resolution),
+                                         int(grid_map.info.length_y/grid_map.info.resolution)))
+                    data = np.nan_to_num(data, nan=-1.0).astype(np.int8)
+                    data = data.T
+                    data = np.flip(data, axis=0)
+                    data = np.flip(data, axis=1)
+                    data[data == 0] = 127
+                    data[data == 100] = 0
+                    log_data.grids[layer] = (data, grid_map.info)
             else:
                 print(f"Unknown topic: {topic}")
         return log_data
@@ -162,6 +179,33 @@ def plot_path(data: LogData):
     ax.legend()
     ax.grid()
     fig.savefig(f"/tmp/path_{data.filename.stem}.png")
+    return fig
+
+
+def plot_area_with_error(ts, v, error, label='', fig: plt.Figure = None) -> plt.Figure:
+    """Plot area graph"""
+    if fig is None:
+        fig = plt.figure()
+        ax = fig.add_subplot(111)
+        # ax.set_title('Exploration results')
+        ax.set_xlabel('time (s)')
+        ax.set_ylabel('area (%)')
+        ax.grid()
+
+        ax2 = ax.twinx()
+        ax2.set_ylabel('area (m^2)')
+    else:
+        ax = fig.axes[0]
+        ax2 = fig.axes[1]
+
+    ax.plot(ts, v, label=label)
+    ax2.set_ylim(0, 60)  # Hardcoded
+    # ax2.plot(ts, v[1])
+    # ax.fill_between(ts, v[0] - error[0], v[0] + error[0], alpha=0.3)
+    ax.fill_between(ts, v - error, v + error, alpha=0.3)
+
+    ax.legend()
+    fig.savefig("/tmp/area_avg.png")
     return fig
 
 
