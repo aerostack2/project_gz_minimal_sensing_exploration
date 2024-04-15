@@ -60,6 +60,10 @@ rviz_config="assets/rviz/three_drone.rviz"
 # Get drone namespaces from swarm config file
 drones=$(python utils/get_drones.py ${simulation_config})
 
+tmuxinator start -p tmuxinator/gazebo.yml \
+    simulation_config=${simulation_config} &
+sleep 20
+
 tmuxinator start -p tmuxinator/aerostack2.yml \
     drones=${drones} \
     simulation_config=${simulation_config} \
