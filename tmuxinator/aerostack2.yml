@@ -27,9 +27,8 @@ windows:
     - gazebo:
         layout:
         panes:
-            - ros2 launch as2_ign_gazebo_assets launch_simulation.py
+            - ros2 launch as2_ign_gazebo_assets spawn.launch.py
                 use_sim_time:=true
-                headless:=true
                 simulation_config_file:=<%= simulation_config %>
             - rviz2 -d <%= rviz_config %>
     - visualization:
