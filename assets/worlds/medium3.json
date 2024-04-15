@@ -1,0 +1,44 @@
+{
+    "world_name": "medium",
+    "drones": [
+        {
+            "model_type": "quadrotor_base",
+            "model_name": "drone0",
+            "xyz": [-21.82, 22.82, 0],
+            "rpy": [0, 0, 3.65],
+            "payload": [
+                {
+                    "model_type": "multi_ranger",
+                    "model_name": "lidar",
+                    "xyz": [0, 0, 0]
+                }
+            ]
+        },
+        {
+            "model_type": "quadrotor_base",
+            "model_name": "drone1",
+            "xyz": [16.82, -19.82, 0],
+            "rpy": [0, 0, 3.65],
+            "payload": [
+                {
+                    "model_type": "multi_ranger",
+                    "model_name": "lidar",
+                    "xyz": [0, 0, 0]
+                }
+            ]
+        },
+        {
+            "model_type": "quadrotor_base",
+            "model_name": "drone2",
+            "xyz": [-14.31, -17.64, 0],
+            "rpy": [0, 0, 3.65],
+            "payload": [
+                {
+                    "model_type": "multi_ranger",
+                    "model_name": "lidar",
+                    "xyz": [0, 0, 0]
+                }
+            ]
+        }
+    ]
+}
