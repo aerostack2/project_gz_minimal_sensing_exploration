@@ -1,0 +1,96 @@
+{
+    "world_name": "low",
+    "drones": [
+        {
+            "model_type": "quadrotor_base",
+            "model_name": "drone0",
+            "xyz": [16.15, -0.09, 0],
+            "rpy": [0, 0, 3.47],
+            "payload": [
+                {
+                    "model_type": "multi_ranger",
+                    "model_name": "lidar",
+                    "xyz": [0, 0, 0]
+                }
+            ]
+        },
+        {
+            "model_type": "quadrotor_base",
+            "model_name": "drone1",
+            "xyz": [-19.78, 7.5, 0],
+            "rpy": [0, 0, 1.31],
+            "payload": [
+                {
+                    "model_type": "multi_ranger",
+                    "model_name": "lidar",
+                    "xyz": [0, 0, 0]
+                }
+            ]
+        },
+        {
+            "model_type": "quadrotor_base",
+            "model_name": "drone2",
+            "xyz": [-0.5, -15.2, 0],
+            "rpy": [0, 0, 0],
+            "payload": [
+                {
+                    "model_type": "multi_ranger",
+                    "model_name": "lidar",
+                    "xyz": [0, 0, 0]
+                }
+            ]
+        },
+        {
+            "model_type": "quadrotor_base",
+            "model_name": "drone3",
+            "xyz": [-2.1, 5.2, 0],
+            "rpy": [0, 0, 0],
+            "payload": [
+                {
+                    "model_type": "multi_ranger",
+                    "model_name": "lidar",
+                    "xyz": [0, 0, 0]
+                }
+            ]
+        },
+        {
+            "model_type": "quadrotor_base",
+            "model_name": "drone4",
+            "xyz": [10.95, 23.05, 0],
+            "rpy": [0, 0, 0],
+            "payload": [
+                {
+                    "model_type": "multi_ranger",
+                    "model_name": "lidar",
+                    "xyz": [0, 0, 0]
+                }
+            ]
+        },
+        {
+            "model_type": "quadrotor_base",
+            "model_name": "drone5",
+            "xyz": [23.64, -21.72, 0],
+            "rpy": [0, 0, 0],
+            "payload": [
+                {
+                    "model_type": "multi_ranger",
+                    "model_name": "lidar",
+                    "xyz": [0, 0, 0]
+                }
+            ]
+        },
+        {
+            "model_type": "quadrotor_base",
+            "model_name": "drone6",
+            "xyz": [-19.62, -18.53, 0],
+            "rpy": [0, 0, 0],
+            "payload": [
+                {
+                    "model_type": "multi_ranger",
+                    "model_name": "lidar",
+                    "xyz": [0, 0, 0]
+                }
+            ]
+        }
+    ]
+}
