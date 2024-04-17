@@ -9,13 +9,12 @@ use_sim_time                = true
 name: gazebo
 attach: false
 root: ./
-pre_window: humble; clear
 windows:
     - gazebo:
         layout:
         panes:
             - ros2 launch as2_ign_gazebo_assets launch_simulation.py
                 use_sim_time:=true
-                headless:=true
+                headless:=false
                 verbose:=true
                 simulation_config_file:=<%= simulation_config %>
