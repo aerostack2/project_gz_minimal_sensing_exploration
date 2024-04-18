@@ -1,0 +1,44 @@
+{
+    "world_name": "high",
+    "drones": [
+        {
+            "model_type": "quadrotor_base",
+            "model_name": "drone0",
+            "xyz": [-3.78, -9.97, 0],
+            "rpy": [0, 0, 1.73],
+            "payload": [
+                {
+                    "model_type": "multi_ranger",
+                    "model_name": "lidar",
+                    "xyz": [0, 0, 0]
+                }
+            ]
+        },
+        {
+            "model_type": "quadrotor_base",
+            "model_name": "drone1",
+            "xyz": [17.5, 14.65, 0],
+            "rpy": [0, 0, 1.73],
+            "payload": [
+                {
+                    "model_type": "multi_ranger",
+                    "model_name": "lidar",
+                    "xyz": [0, 0, 0]
+                }
+            ]
+        },
+        {
+            "model_type": "quadrotor_base",
+            "model_name": "drone2",
+            "xyz": [-20.6, 15.39, 0],
+            "rpy": [0, 0, 1.73],
+            "payload": [
+                {
+                    "model_type": "multi_ranger",
+                    "model_name": "lidar",
+                    "xyz": [0, 0, 0]
+                }
+            ]
+        }
+    ]
+}
