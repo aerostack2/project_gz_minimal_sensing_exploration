@@ -124,7 +124,16 @@ if __name__ == '__main__':
                   verbose=False, use_sim_time=True))
     scouts.append(Explorer(drone_id="drone2",
                   verbose=False, use_sim_time=True))
+    scouts.append(Explorer(drone_id="drone3",
+                  verbose=False, use_sim_time=True))
+    scouts.append(Explorer(drone_id="drone4",
+                  verbose=False, use_sim_time=True))
+    scouts.append(Explorer(drone_id="drone5",
+                  verbose=False, use_sim_time=True))
+    scouts.append(Explorer(drone_id="drone6",
+                  verbose=False, use_sim_time=True))
 
+    sleep(5)
     # Only keep connected drones
     for scout in scouts.copy():
         if not scout.connected:
@@ -147,8 +156,11 @@ if __name__ == '__main__':
         wait = scout == scouts[-1]
         scout.takeoff(1.0, wait=wait)
 
+    sleep(5)
     logging.get_logger("rclpy").info("Starting evaluator")
     evaluator_start.call_async(Trigger.Request())
+
+    timeout: int = 6000
 
     futures: list[Future] = [scout.explore() for scout in scouts]
     logging.get_logger("rclpy").info("Exploring")
@@ -157,6 +169,12 @@ if __name__ == '__main__':
         if any((scout.crashed for scout in scouts)):
             logging.get_logger("rclpy").error(
                 f"Crash detected for {scout.drone_id}")
+            for fut in futures:
+                fut.cancel()
+            break
+
+        if scouts[0].get_clock().now().seconds_nanoseconds()[0] > timeout:
+            logging.get_logger("rclpy").error("Timeout")
             for fut in futures:
                 fut.cancel()
             break
