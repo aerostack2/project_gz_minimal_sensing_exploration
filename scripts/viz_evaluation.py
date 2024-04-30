@@ -3,6 +3,7 @@ import bisect
 from dataclasses import dataclass, field
 from pathlib import Path
 import numpy as np
+import cv2
 import matplotlib.pyplot as plt
 
 from geometry_msgs.msg import PointStamped
@@ -35,6 +36,7 @@ class LogData:
     poses: dict[str, list[tuple[float, float]]] = field(default_factory=dict)
     grids: dict[str, tuple[np.ndarray, GridMapInfo]
                 ] = field(default_factory=dict)
+    last_occ_grid: OccupancyGrid = None
 
     @classmethod
     def from_rosbag(cls, rosbag: Path) -> 'LogData':
@@ -51,6 +53,7 @@ class LogData:
                     area, pct = log_data.parse_grid(grid)
                     log_data.area_pct.append(pct)
                     log_data.area_m2.append(area)
+                log_data.last_occ_grid = grids[-1]
             elif "path_length" in topic:
                 path_length = deserialize_msgs(msgs, PointStamped)
                 drone_id = topic.split("/")[1]
@@ -68,6 +71,7 @@ class LogData:
             elif topic == "/map_server/grid_map":
                 grid_map: GridMap = deserialize_msgs(msgs, GridMap)[-1]
                 for layer in grid_map.layers:
+                    # ROS_MSG: -1 unknown, 0 free, 100 occupied
                     idx = grid_map.layers.index(layer)
                     data = np.array(grid_map.data[idx].data, dtype=np.float64)
                     data = data.reshape((int(grid_map.info.length_x/grid_map.info.resolution),
@@ -78,7 +82,15 @@ class LogData:
                     data = np.flip(data, axis=1)
                     data[data == 0] = 127
                     data[data == 100] = 0
-                    log_data.grids[layer] = (data, grid_map.info)
+                    # DATA: -1 unknown, 127 free, 0 occupied
+
+                    # Multiplicar por 100 saturando en 255.
+                    # Los valores entre 3 y 127 pasan a ser libres (255)
+                    data_aux = cv2.convertScaleAbs(
+                        data, alpha=100).astype(np.uint8)
+                    data_aux[data_aux == 100] = 128
+                    # DATA_AUX: 128 unknown, 255 free, 0 occupied
+                    log_data.grids[layer] = (data_aux, grid_map.info)
             else:
                 print(f"Unknown topic: {topic}")
         return log_data
