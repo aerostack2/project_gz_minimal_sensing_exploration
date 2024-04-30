@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ## OVERIDE MODEL PATH TO GET FIRST MODELS FROM PROJECT (planar_lidar)
-export IGN_GAZEBO_RESOURCE_PATH=$PWD/assets/worlds:$PWD/assets/models:$IGN_GAZEBO_RESOURCE_PATH
+export GZ_SIM_RESOURCE_PATH=$PWD/assets/worlds:$PWD/assets/models:$GZ_SIM_RESOURCE_PATH
 export __NV_PRIME_RENDER_OFFLOAD=1
 export __GLX_VENDOR_LIBRARY_NAME=nvidia
 export IGN_IP=127.0.0.1
@@ -33,12 +33,11 @@ do_explorations() {
         sleep 10
         python explore.py
         ./kill.bash
-        pskill -y gazebo
+        pskill -y gz
     done
 }
 
-simulation_config="assets/worlds/high5.json"
+simulation_config="assets/worlds/low3.json"
 rviz_config="assets/rviz/three_drone.rviz"
 
-do_explorations 11 ${simulation_config} ${rviz_config}
-# do_explorations 11 "assets/worlds/high7.json" ${rviz_config}
+do_explorations 5 ${simulation_config} ${rviz_config}
