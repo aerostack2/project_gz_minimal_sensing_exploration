@@ -1,0 +1,4047 @@
+<?xml version="1.0"?>
+
+<sdf version="1.6">
+    <world name="huge">
+        <physics name="4ms" type="ignored">
+            <max_step_size>0.004</max_step_size>
+            <real_time_factor>1.0</real_time_factor>
+        </physics>
+        <plugin
+            filename="ignition-gazebo-physics-system"
+            name="ignition::gazebo::systems::Physics">
+        </plugin>
+        <plugin
+            filename="ignition-gazebo-scene-broadcaster-system"
+            name="ignition::gazebo::systems::SceneBroadcaster">
+        </plugin>
+        <plugin
+            filename="ignition-gazebo-user-commands-system"
+            name="ignition::gazebo::systems::UserCommands">
+        </plugin>
+        <plugin
+            filename="ignition-gazebo-sensors-system"
+            name="ignition::gazebo::systems::Sensors">
+            <render_engine>ogre2</render_engine>
+        </plugin>
+
+        <!-- <light type="directional"
+            name="sun">
+            <cast_shadows>true</cast_shadows>
+            <pose>0 0 10 0 0 0</pose>
+            <diffuse>0.8 0.8 0.8 1</diffuse>
+            <specular>0.2 0.2 0.2 1</specular>
+            <attenuation>
+                <range>1000</range>
+                <constant>0.9</constant>
+                <linear>0.01</linear>
+                <quadratic>0.001</quadratic>
+            </attenuation>
+            <direction>-0.5 0.1 -0.9</direction>
+        </light>  -->
+
+        <include>
+            <uri>model://ground_plane</uri>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole1</name>
+            <pose>-23.5 -23.08 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole2</name>
+            <pose>-1.81 19.83 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole3</name>
+            <pose>14.09 -11.19 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole4</name>
+            <pose>-12.45 -20.58 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole5</name>
+            <pose>18.44 1.86 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole6</name>
+            <pose>-17.52 9.56 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole7</name>
+            <pose>-7.19 12.59 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole8</name>
+            <pose>22.05 4.54 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole9</name>
+            <pose>2.53 5.12 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole10</name>
+            <pose>-24.74 -10.23 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole11</name>
+            <pose>10.14 0.29 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole12</name>
+            <pose>-8.45 -13.63 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole13</name>
+            <pose>-21.98 24.53 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole14</name>
+            <pose>-7.01 19.04 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole15</name>
+            <pose>10.22 2.6 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole16</name>
+            <pose>23.84 9.63 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole17</name>
+            <pose>-12.84 -6.46 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole18</name>
+            <pose>-17.31 0.41 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole19</name>
+            <pose>12.08 -23.81 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole20</name>
+            <pose>0.73 -13.72 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole21</name>
+            <pose>16.44 4.69 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole22</name>
+            <pose>10.56 15.59 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole23</name>
+            <pose>21.9 -24.55 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole24</name>
+            <pose>22.41 -15.11 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole25</name>
+            <pose>-18.38 -15.14 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole26</name>
+            <pose>-19.12 -16.96 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole27</name>
+            <pose>-22.33 -3.14 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole28</name>
+            <pose>-8.06 -7.83 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole29</name>
+            <pose>11.19 9.9 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole30</name>
+            <pose>-0.55 -11.74 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole31</name>
+            <pose>-6.48 -20.39 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole32</name>
+            <pose>14.62 5.5 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole33</name>
+            <pose>-3.95 7.78 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole34</name>
+            <pose>4.9 19.29 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole35</name>
+            <pose>-22.28 -7.79 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole36</name>
+            <pose>-14.11 5.05 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole37</name>
+            <pose>22.82 -24.62 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole38</name>
+            <pose>6.32 7.27 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole39</name>
+            <pose>14.92 -19.9 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole40</name>
+            <pose>18.7 -17.82 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole41</name>
+            <pose>-22.52 -13.73 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole42</name>
+            <pose>-22.63 -3.09 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole43</name>
+            <pose>17.33 -23.74 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole44</name>
+            <pose>-14.26 20.97 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole45</name>
+            <pose>-22.54 -23.59 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole46</name>
+            <pose>-19.91 -0.04 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole47</name>
+            <pose>16.76 16.73 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole48</name>
+            <pose>19.7 14.8 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole49</name>
+            <pose>5.61 -13.44 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole50</name>
+            <pose>-7.34 -19.17 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole51</name>
+            <pose>-9.84 -22.6 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole52</name>
+            <pose>11.39 -13.15 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole53</name>
+            <pose>-16.06 11.62 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole54</name>
+            <pose>-24.37 -20.89 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole55</name>
+            <pose>15.82 -23.26 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole56</name>
+            <pose>9.98 7.78 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole57</name>
+            <pose>-7.21 2.5 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole58</name>
+            <pose>21.04 11.13 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole59</name>
+            <pose>5.61 18.72 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole60</name>
+            <pose>19.32 4.55 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole61</name>
+            <pose>-24.85 11.55 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole62</name>
+            <pose>4.28 3.28 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole63</name>
+            <pose>-0.32 18.33 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole64</name>
+            <pose>-13.2 -15.41 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole65</name>
+            <pose>-1.07 -2.62 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole66</name>
+            <pose>24.13 -18.29 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole67</name>
+            <pose>-2.12 22.13 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole68</name>
+            <pose>-0.86 -9.67 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole69</name>
+            <pose>-20.47 24.51 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole70</name>
+            <pose>14.52 -16.67 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole71</name>
+            <pose>-17.69 22.25 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole72</name>
+            <pose>-5.39 14.81 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole73</name>
+            <pose>19.22 -19.96 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole74</name>
+            <pose>20.77 -19.32 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole75</name>
+            <pose>6.54 -23.1 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole76</name>
+            <pose>20.2 1.84 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole77</name>
+            <pose>-11.36 -22.01 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole78</name>
+            <pose>11.55 -20.43 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole79</name>
+            <pose>-22.35 -18.78 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole80</name>
+            <pose>19.45 -3.15 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole81</name>
+            <pose>3.86 -3.96 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole82</name>
+            <pose>-11.87 16.22 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole83</name>
+            <pose>-8.44 19.1 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole84</name>
+            <pose>9.04 11.71 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole85</name>
+            <pose>24.87 22.91 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole86</name>
+            <pose>18.83 -4.16 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole87</name>
+            <pose>10.99 -19.68 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole88</name>
+            <pose>12.93 21.78 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole89</name>
+            <pose>-9.89 21.25 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole90</name>
+            <pose>0.12 7.08 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole91</name>
+            <pose>-2.07 -4.36 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole92</name>
+            <pose>18.54 -11.96 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole93</name>
+            <pose>8.62 20.18 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole94</name>
+            <pose>3.38 -11.76 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole95</name>
+            <pose>-21.83 2.65 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole96</name>
+            <pose>-9.24 -16.42 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole97</name>
+            <pose>4.21 18.4 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole98</name>
+            <pose>0.35 -11.84 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole99</name>
+            <pose>-11.63 20.49 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole100</name>
+            <pose>-3.1 -14.72 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole101</name>
+            <pose>-23.21 19.14 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole102</name>
+            <pose>-14.28 -5.19 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole103</name>
+            <pose>0.97 -4.14 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole104</name>
+            <pose>-6.27 -16.77 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole105</name>
+            <pose>17.13 -5.79 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole106</name>
+            <pose>13.69 2.0 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole107</name>
+            <pose>12.56 -4.09 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole108</name>
+            <pose>20.13 -9.3 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole109</name>
+            <pose>22.49 -24.22 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole110</name>
+            <pose>24.47 7.57 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole111</name>
+            <pose>-3.77 -14.37 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole112</name>
+            <pose>19.29 17.09 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole113</name>
+            <pose>5.63 15.25 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole114</name>
+            <pose>-22.67 16.11 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole115</name>
+            <pose>22.98 8.23 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole116</name>
+            <pose>8.08 21.72 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole117</name>
+            <pose>17.47 -24.04 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole118</name>
+            <pose>-8.65 19.68 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole119</name>
+            <pose>12.08 1.82 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole120</name>
+            <pose>-24.67 -2.02 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole121</name>
+            <pose>10.9 -11.76 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole122</name>
+            <pose>18.09 -8.3 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole123</name>
+            <pose>1.77 -24.71 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole124</name>
+            <pose>-14.68 24.38 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole125</name>
+            <pose>-19.52 -15.34 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole126</name>
+            <pose>2.32 -19.0 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole127</name>
+            <pose>10.94 19.99 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole128</name>
+            <pose>-13.23 22.6 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole129</name>
+            <pose>11.05 -22.98 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole130</name>
+            <pose>-22.67 -0.21 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole131</name>
+            <pose>13.18 0.86 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole132</name>
+            <pose>8.42 3.49 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole133</name>
+            <pose>9.57 -18.58 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole134</name>
+            <pose>3.77 1.6 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole135</name>
+            <pose>19.84 9.3 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole136</name>
+            <pose>16.31 18.28 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole137</name>
+            <pose>-12.33 -23.34 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole138</name>
+            <pose>-18.47 -24.01 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole139</name>
+            <pose>4.12 -2.82 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole140</name>
+            <pose>4.6 23.45 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole141</name>
+            <pose>-16.33 -11.93 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole142</name>
+            <pose>17.06 0.02 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole143</name>
+            <pose>-21.1 2.24 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole144</name>
+            <pose>9.62 21.66 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole145</name>
+            <pose>-24.33 12.11 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole146</name>
+            <pose>1.61 -6.96 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole147</name>
+            <pose>-2.68 -5.98 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole148</name>
+            <pose>-6.93 22.61 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole149</name>
+            <pose>-22.46 3.84 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole150</name>
+            <pose>17.14 24.68 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole151</name>
+            <pose>-9.28 -17.5 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole152</name>
+            <pose>-18.91 4.25 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole153</name>
+            <pose>-16.18 18.79 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole154</name>
+            <pose>-6.06 -21.39 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole155</name>
+            <pose>-13.71 -9.92 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole156</name>
+            <pose>-6.97 12.39 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole157</name>
+            <pose>13.24 -24.46 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole158</name>
+            <pose>1.39 4.01 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole159</name>
+            <pose>-9.03 -22.38 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole160</name>
+            <pose>14.68 -0.92 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole161</name>
+            <pose>-5.78 -21.42 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole162</name>
+            <pose>8.78 16.02 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole163</name>
+            <pose>12.91 -21.75 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole164</name>
+            <pose>-12.4 3.84 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole165</name>
+            <pose>0.47 -5.21 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole166</name>
+            <pose>4.56 -24.22 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole167</name>
+            <pose>19.58 21.95 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole168</name>
+            <pose>-17.55 4.84 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole169</name>
+            <pose>17.9 -20.04 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole170</name>
+            <pose>4.05 -15.67 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole171</name>
+            <pose>-2.05 -1.66 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole172</name>
+            <pose>-9.95 -23.01 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole173</name>
+            <pose>10.79 15.63 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole174</name>
+            <pose>0.3 13.6 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole175</name>
+            <pose>12.53 -2.18 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole176</name>
+            <pose>1.96 -6.33 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole177</name>
+            <pose>-3.39 20.68 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole178</name>
+            <pose>-5.07 9.39 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole179</name>
+            <pose>-9.45 10.71 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole180</name>
+            <pose>22.59 6.83 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole181</name>
+            <pose>19.92 19.27 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole182</name>
+            <pose>0.7 -6.0 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole183</name>
+            <pose>1.92 8.93 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole184</name>
+            <pose>16.18 6.75 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole185</name>
+            <pose>-7.5 18.17 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole186</name>
+            <pose>-2.18 6.58 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole187</name>
+            <pose>-23.46 -7.16 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole188</name>
+            <pose>12.31 -17.04 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole189</name>
+            <pose>12.63 21.5 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole190</name>
+            <pose>11.11 -4.2 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole191</name>
+            <pose>9.96 -0.72 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole192</name>
+            <pose>-23.01 10.81 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole193</name>
+            <pose>18.75 -0.55 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole194</name>
+            <pose>-19.66 -1.44 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole195</name>
+            <pose>-14.7 -16.63 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole196</name>
+            <pose>-20.7 2.27 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole197</name>
+            <pose>-13.44 -1.9 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole198</name>
+            <pose>-15.32 13.26 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole199</name>
+            <pose>19.46 -16.73 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole200</name>
+            <pose>-1.19 -24.07 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole201</name>
+            <pose>-11.73 3.72 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole202</name>
+            <pose>-3.37 -14.94 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole203</name>
+            <pose>-5.47 -5.68 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole204</name>
+            <pose>24.36 19.47 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole205</name>
+            <pose>5.28 -22.93 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole206</name>
+            <pose>16.13 -19.78 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole207</name>
+            <pose>13.87 -5.01 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole208</name>
+            <pose>0.37 22.46 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole209</name>
+            <pose>3.7 23.16 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole210</name>
+            <pose>13.8 21.81 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole211</name>
+            <pose>0.98 -24.4 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole212</name>
+            <pose>12.56 -16.51 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole213</name>
+            <pose>-24.04 -15.29 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole214</name>
+            <pose>5.62 9.81 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole215</name>
+            <pose>-22.6 20.61 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole216</name>
+            <pose>-7.79 10.07 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole217</name>
+            <pose>-13.23 7.83 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole218</name>
+            <pose>-1.0 24.19 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole219</name>
+            <pose>-1.67 24.43 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole220</name>
+            <pose>18.52 -9.46 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole221</name>
+            <pose>-1.16 14.54 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole222</name>
+            <pose>3.54 -16.79 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole223</name>
+            <pose>10.29 14.09 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole224</name>
+            <pose>8.81 6.35 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole225</name>
+            <pose>2.26 -22.12 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole226</name>
+            <pose>22.46 7.73 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole227</name>
+            <pose>13.46 -12.71 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole228</name>
+            <pose>-17.35 -24.76 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole229</name>
+            <pose>-14.0 -24.61 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole230</name>
+            <pose>11.51 17.73 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole231</name>
+            <pose>16.79 -17.24 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole232</name>
+            <pose>-5.34 -7.9 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole233</name>
+            <pose>18.77 11.49 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole234</name>
+            <pose>22.02 -22.44 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole235</name>
+            <pose>9.92 -2.55 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole236</name>
+            <pose>17.77 17.75 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole237</name>
+            <pose>18.93 -14.18 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole238</name>
+            <pose>-18.63 1.21 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole239</name>
+            <pose>-19.57 18.27 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole240</name>
+            <pose>20.08 -0.59 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole241</name>
+            <pose>-15.2 4.71 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole242</name>
+            <pose>12.08 -18.78 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole243</name>
+            <pose>-6.32 -4.46 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole244</name>
+            <pose>-0.26 -23.82 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole245</name>
+            <pose>1.4 4.17 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole246</name>
+            <pose>22.39 -6.49 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole247</name>
+            <pose>11.77 15.91 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole248</name>
+            <pose>-19.34 4.86 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole249</name>
+            <pose>13.78 8.87 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole250</name>
+            <pose>12.05 -12.32 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole251</name>
+            <pose>16.16 17.82 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole252</name>
+            <pose>-6.25 -4.79 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole253</name>
+            <pose>3.11 -0.71 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole254</name>
+            <pose>-18.12 -1.43 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole255</name>
+            <pose>-22.84 -2.0 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole256</name>
+            <pose>4.65 -19.04 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole257</name>
+            <pose>16.75 -24.93 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole258</name>
+            <pose>6.72 -13.21 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole259</name>
+            <pose>-0.96 15.13 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole260</name>
+            <pose>12.25 -21.17 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole261</name>
+            <pose>16.87 -2.73 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole262</name>
+            <pose>4.48 5.09 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole263</name>
+            <pose>-1.16 15.42 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole264</name>
+            <pose>-21.68 -3.92 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole265</name>
+            <pose>12.01 0.94 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole266</name>
+            <pose>-12.53 -2.59 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole267</name>
+            <pose>-1.88 5.89 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole268</name>
+            <pose>22.76 5.48 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole269</name>
+            <pose>-18.59 7.63 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole270</name>
+            <pose>10.14 0.33 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole271</name>
+            <pose>-12.25 8.11 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole272</name>
+            <pose>11.73 -23.13 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole273</name>
+            <pose>-2.92 18.71 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole274</name>
+            <pose>-14.43 6.73 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole275</name>
+            <pose>7.89 14.79 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole276</name>
+            <pose>-11.64 -7.17 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole277</name>
+            <pose>-16.51 -7.06 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole278</name>
+            <pose>0.22 -19.47 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole279</name>
+            <pose>-14.84 -14.28 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole280</name>
+            <pose>-24.46 19.06 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole281</name>
+            <pose>16.42 -9.02 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole282</name>
+            <pose>-5.3 23.67 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole283</name>
+            <pose>9.6 11.65 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole284</name>
+            <pose>7.91 2.63 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole285</name>
+            <pose>-19.47 4.21 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole286</name>
+            <pose>2.18 -3.9 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole287</name>
+            <pose>-19.74 -21.75 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole288</name>
+            <pose>7.41 -9.76 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole289</name>
+            <pose>12.74 -21.99 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole290</name>
+            <pose>16.84 -24.49 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole291</name>
+            <pose>17.37 15.35 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole292</name>
+            <pose>-11.95 24.65 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole293</name>
+            <pose>8.31 -17.7 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole294</name>
+            <pose>21.96 -23.3 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole295</name>
+            <pose>14.13 14.91 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole296</name>
+            <pose>13.37 -4.9 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole297</name>
+            <pose>7.98 -10.25 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole298</name>
+            <pose>0.23 -8.89 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole299</name>
+            <pose>-6.33 3.59 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole300</name>
+            <pose>-19.83 0.66 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole301</name>
+            <pose>-10.03 11.06 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole302</name>
+            <pose>-13.1 0.76 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole303</name>
+            <pose>1.13 -24.95 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole304</name>
+            <pose>17.03 6.75 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole305</name>
+            <pose>-7.44 -1.06 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole306</name>
+            <pose>-16.33 6.21 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole307</name>
+            <pose>13.01 -7.86 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole308</name>
+            <pose>-10.44 -23.64 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole309</name>
+            <pose>-7.7 22.72 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole310</name>
+            <pose>-7.54 -13.97 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole311</name>
+            <pose>19.03 20.11 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole312</name>
+            <pose>-11.95 -22.74 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole313</name>
+            <pose>-5.6 0.9 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole314</name>
+            <pose>24.06 -16.25 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole315</name>
+            <pose>-18.08 4.39 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole316</name>
+            <pose>24.65 21.41 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole317</name>
+            <pose>4.44 4.48 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole318</name>
+            <pose>5.42 15.77 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole319</name>
+            <pose>21.95 -15.72 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole320</name>
+            <pose>-18.27 12.55 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole321</name>
+            <pose>-0.46 3.43 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole322</name>
+            <pose>9.86 -7.56 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole323</name>
+            <pose>16.44 5.25 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole324</name>
+            <pose>-19.06 9.41 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole325</name>
+            <pose>-21.49 -24.63 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole326</name>
+            <pose>15.25 0.9 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole327</name>
+            <pose>-22.41 -1.65 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole328</name>
+            <pose>13.84 12.92 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole329</name>
+            <pose>-14.89 24.92 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole330</name>
+            <pose>6.76 -14.75 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole331</name>
+            <pose>7.76 8.31 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole332</name>
+            <pose>15.98 14.48 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole333</name>
+            <pose>11.0 -16.45 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole334</name>
+            <pose>-9.54 13.2 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole335</name>
+            <pose>-18.52 4.37 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole336</name>
+            <pose>1.37 7.16 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole337</name>
+            <pose>-10.01 23.32 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole338</name>
+            <pose>-13.31 -21.47 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole339</name>
+            <pose>6.12 20.39 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole340</name>
+            <pose>23.08 -13.52 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole341</name>
+            <pose>10.55 1.93 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole342</name>
+            <pose>7.73 19.37 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole343</name>
+            <pose>-21.22 21.9 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole344</name>
+            <pose>-9.81 -7.39 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole345</name>
+            <pose>-22.64 12.99 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole346</name>
+            <pose>21.82 -21.65 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole347</name>
+            <pose>5.78 -20.14 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole348</name>
+            <pose>13.83 2.72 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole349</name>
+            <pose>11.47 12.39 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole350</name>
+            <pose>-5.39 4.38 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole351</name>
+            <pose>9.98 -17.65 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole352</name>
+            <pose>6.38 -19.35 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole353</name>
+            <pose>-22.59 20.58 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole354</name>
+            <pose>24.04 -12.98 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole355</name>
+            <pose>-0.24 3.79 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole356</name>
+            <pose>-0.98 -5.37 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole357</name>
+            <pose>-2.78 14.43 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole358</name>
+            <pose>16.17 -5.91 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole359</name>
+            <pose>5.38 14.85 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole360</name>
+            <pose>-13.48 23.47 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole361</name>
+            <pose>17.93 9.55 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole362</name>
+            <pose>-17.84 20.13 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole363</name>
+            <pose>13.73 -4.58 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole364</name>
+            <pose>-13.25 5.22 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole365</name>
+            <pose>-1.2 16.64 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole366</name>
+            <pose>15.15 19.98 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole367</name>
+            <pose>20.68 11.87 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole368</name>
+            <pose>19.55 -22.6 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole369</name>
+            <pose>4.43 24.14 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole370</name>
+            <pose>-6.19 -22.74 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole371</name>
+            <pose>10.44 -2.26 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole372</name>
+            <pose>-22.23 6.31 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole373</name>
+            <pose>-21.14 -23.26 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole374</name>
+            <pose>24.78 -8.93 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole375</name>
+            <pose>-8.58 3.89 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole376</name>
+            <pose>13.32 1.49 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole377</name>
+            <pose>4.51 -14.55 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole378</name>
+            <pose>13.16 -1.59 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole379</name>
+            <pose>-9.77 -2.78 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole380</name>
+            <pose>7.49 16.89 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole381</name>
+            <pose>-4.09 -4.51 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole382</name>
+            <pose>5.71 15.83 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole383</name>
+            <pose>21.99 20.03 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole384</name>
+            <pose>13.59 -0.68 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole385</name>
+            <pose>1.16 -15.9 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole386</name>
+            <pose>-20.44 23.8 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole387</name>
+            <pose>8.46 3.83 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole388</name>
+            <pose>-19.58 -16.51 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole389</name>
+            <pose>-15.82 15.8 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole390</name>
+            <pose>-15.93 -5.29 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole391</name>
+            <pose>0.38 -16.65 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole392</name>
+            <pose>5.77 -16.63 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole393</name>
+            <pose>-22.71 5.2 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole394</name>
+            <pose>0.18 9.88 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole395</name>
+            <pose>-23.31 8.9 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole396</name>
+            <pose>-1.33 -20.07 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole397</name>
+            <pose>-24.94 7.49 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole398</name>
+            <pose>14.21 -19.05 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole399</name>
+            <pose>18.62 15.79 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole400</name>
+            <pose>4.67 8.24 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole401</name>
+            <pose>-11.6 -20.46 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole402</name>
+            <pose>-5.24 -11.02 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole403</name>
+            <pose>-13.4 -15.13 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole404</name>
+            <pose>12.99 -19.13 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole405</name>
+            <pose>-13.75 13.99 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole406</name>
+            <pose>-6.21 8.21 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole407</name>
+            <pose>8.39 3.1 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole408</name>
+            <pose>-9.27 -3.25 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole409</name>
+            <pose>3.28 -11.58 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole410</name>
+            <pose>23.88 -23.36 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole411</name>
+            <pose>6.0 19.17 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole412</name>
+            <pose>-12.82 -22.46 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole413</name>
+            <pose>9.81 -9.97 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole414</name>
+            <pose>9.36 24.08 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole415</name>
+            <pose>15.76 5.52 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole416</name>
+            <pose>-5.3 -2.68 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole417</name>
+            <pose>-6.18 15.29 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole418</name>
+            <pose>11.56 -16.51 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole419</name>
+            <pose>9.22 6.36 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole420</name>
+            <pose>-10.94 -7.02 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole421</name>
+            <pose>20.81 10.68 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole422</name>
+            <pose>-24.12 20.67 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole423</name>
+            <pose>-8.43 19.91 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole424</name>
+            <pose>20.17 14.78 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole425</name>
+            <pose>-13.39 21.57 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole426</name>
+            <pose>21.47 22.59 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole427</name>
+            <pose>-6.12 -3.86 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole428</name>
+            <pose>24.43 -17.46 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole429</name>
+            <pose>-10.11 11.6 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole430</name>
+            <pose>9.99 7.48 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole431</name>
+            <pose>10.17 17.17 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole432</name>
+            <pose>-2.28 -10.7 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole433</name>
+            <pose>-5.47 3.64 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole434</name>
+            <pose>-7.86 -24.63 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole435</name>
+            <pose>-18.06 -2.4 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole436</name>
+            <pose>-19.27 12.05 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole437</name>
+            <pose>-9.7 -8.39 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole438</name>
+            <pose>-19.47 16.24 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole439</name>
+            <pose>23.71 -12.01 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole440</name>
+            <pose>15.14 24.16 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole441</name>
+            <pose>4.33 -19.74 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole442</name>
+            <pose>-22.19 -16.8 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole443</name>
+            <pose>-13.41 8.99 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole444</name>
+            <pose>-24.87 24.11 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole445</name>
+            <pose>0.41 -11.45 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole446</name>
+            <pose>9.05 -15.16 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole447</name>
+            <pose>6.81 12.19 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole448</name>
+            <pose>23.69 3.54 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole449</name>
+            <pose>-20.32 17.15 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole450</name>
+            <pose>-1.59 2.28 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole451</name>
+            <pose>-22.62 -9.16 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole452</name>
+            <pose>-17.41 7.91 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole453</name>
+            <pose>6.04 -18.79 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole454</name>
+            <pose>20.93 -18.9 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole455</name>
+            <pose>15.91 2.84 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole456</name>
+            <pose>-5.45 -1.31 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole457</name>
+            <pose>22.68 -1.09 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole458</name>
+            <pose>17.07 17.0 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole459</name>
+            <pose>-7.41 24.87 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole460</name>
+            <pose>1.1 -14.02 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole461</name>
+            <pose>-7.11 -9.94 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole462</name>
+            <pose>21.57 -12.2 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole463</name>
+            <pose>1.25 18.53 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole464</name>
+            <pose>18.13 -20.33 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole465</name>
+            <pose>-20.81 -23.59 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole466</name>
+            <pose>-13.42 -20.13 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole467</name>
+            <pose>-10.91 24.73 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole468</name>
+            <pose>10.4 19.38 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole469</name>
+            <pose>-23.95 7.28 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole470</name>
+            <pose>12.34 -18.09 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole471</name>
+            <pose>-4.44 -5.72 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole472</name>
+            <pose>2.62 -16.02 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole473</name>
+            <pose>-23.58 12.97 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole474</name>
+            <pose>20.35 -19.55 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole475</name>
+            <pose>-22.71 -15.2 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole476</name>
+            <pose>-14.68 2.31 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole477</name>
+            <pose>6.58 10.53 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole478</name>
+            <pose>-19.5 -7.05 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole479</name>
+            <pose>-6.22 1.39 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole480</name>
+            <pose>-5.65 15.08 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole481</name>
+            <pose>-24.21 13.41 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole482</name>
+            <pose>8.47 23.79 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole483</name>
+            <pose>-16.34 5.33 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole484</name>
+            <pose>4.73 0.09 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole485</name>
+            <pose>-16.6 -20.28 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole486</name>
+            <pose>1.67 3.49 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole487</name>
+            <pose>-5.63 -14.55 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole488</name>
+            <pose>-16.16 18.36 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole489</name>
+            <pose>-18.64 13.19 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole490</name>
+            <pose>-18.6 21.22 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole491</name>
+            <pose>-9.28 -18.88 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole492</name>
+            <pose>14.49 -15.46 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole493</name>
+            <pose>12.6 11.97 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole494</name>
+            <pose>0.86 -23.51 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole495</name>
+            <pose>-22.79 -23.75 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole496</name>
+            <pose>7.07 -3.8 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole497</name>
+            <pose>-8.06 18.35 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole498</name>
+            <pose>-14.66 -0.38 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole499</name>
+            <pose>-10.5 -2.34 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole500</name>
+            <pose>13.26 -21.7 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole501</name>
+            <pose>-10.26 -24.48 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole502</name>
+            <pose>1.53 22.45 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole503</name>
+            <pose>11.31 2.89 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole504</name>
+            <pose>1.23 11.61 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole505</name>
+            <pose>7.21 3.68 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole506</name>
+            <pose>17.81 16.96 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole507</name>
+            <pose>17.13 1.3 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole508</name>
+            <pose>-7.49 -3.5 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole509</name>
+            <pose>24.86 -21.27 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole510</name>
+            <pose>22.01 6.95 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole511</name>
+            <pose>11.62 2.04 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole512</name>
+            <pose>-25.0 -24.85 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole513</name>
+            <pose>23.06 1.77 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole514</name>
+            <pose>22.49 3.26 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole515</name>
+            <pose>11.56 14.9 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole516</name>
+            <pose>-12.44 15.82 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole517</name>
+            <pose>-5.83 9.09 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole518</name>
+            <pose>-20.74 16.48 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole519</name>
+            <pose>-17.85 -4.5 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole520</name>
+            <pose>2.95 -7.87 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole521</name>
+            <pose>24.12 -9.12 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole522</name>
+            <pose>-6.61 -20.27 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole523</name>
+            <pose>-2.45 -17.16 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole524</name>
+            <pose>-15.13 0.59 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole525</name>
+            <pose>-17.88 1.93 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole526</name>
+            <pose>-6.07 -15.19 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole527</name>
+            <pose>5.15 -5.55 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole528</name>
+            <pose>-0.25 0.78 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole529</name>
+            <pose>-19.37 -20.17 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole530</name>
+            <pose>16.33 14.3 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole531</name>
+            <pose>10.7 -22.19 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole532</name>
+            <pose>-20.89 -16.6 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole533</name>
+            <pose>-10.2 -24.34 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole534</name>
+            <pose>-16.73 8.54 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole535</name>
+            <pose>20.47 19.04 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole536</name>
+            <pose>-6.09 -1.71 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole537</name>
+            <pose>20.85 22.75 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole538</name>
+            <pose>-13.5 -5.57 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole539</name>
+            <pose>0.69 -17.45 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole540</name>
+            <pose>20.55 -13.79 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole541</name>
+            <pose>-2.01 -7.5 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole542</name>
+            <pose>14.1 -9.9 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole543</name>
+            <pose>7.62 -21.44 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole544</name>
+            <pose>-15.74 -1.22 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole545</name>
+            <pose>-13.61 6.65 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole546</name>
+            <pose>3.71 12.03 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole547</name>
+            <pose>-22.79 -5.78 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole548</name>
+            <pose>4.54 -17.48 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole549</name>
+            <pose>-20.7 15.56 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole550</name>
+            <pose>19.05 -4.73 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole551</name>
+            <pose>2.51 -10.48 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole552</name>
+            <pose>20.63 14.39 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole553</name>
+            <pose>-19.79 -4.19 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole554</name>
+            <pose>16.95 -9.71 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole555</name>
+            <pose>-6.04 -19.67 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole556</name>
+            <pose>-19.66 13.09 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole557</name>
+            <pose>19.77 -11.85 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole558</name>
+            <pose>-6.68 19.39 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole559</name>
+            <pose>-6.03 -20.82 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole560</name>
+            <pose>14.91 -10.99 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole561</name>
+            <pose>-16.46 1.97 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole562</name>
+            <pose>-6.41 20.93 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole563</name>
+            <pose>17.54 -3.95 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole564</name>
+            <pose>-24.35 16.05 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole565</name>
+            <pose>-3.16 5.46 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole566</name>
+            <pose>4.68 0.87 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole567</name>
+            <pose>-21.12 -6.95 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole568</name>
+            <pose>24.46 24.57 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole569</name>
+            <pose>-17.21 3.61 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole570</name>
+            <pose>10.29 21.89 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole571</name>
+            <pose>16.91 -14.97 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole572</name>
+            <pose>7.52 14.41 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole573</name>
+            <pose>-6.18 -22.98 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole574</name>
+            <pose>-3.3 -4.27 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole575</name>
+            <pose>24.33 -19.59 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole576</name>
+            <pose>-0.21 8.36 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole577</name>
+            <pose>14.34 15.54 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole578</name>
+            <pose>14.99 -7.21 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole579</name>
+            <pose>5.65 -18.67 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole580</name>
+            <pose>19.74 -13.7 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole581</name>
+            <pose>-21.08 9.02 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole582</name>
+            <pose>16.35 -1.21 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole583</name>
+            <pose>-18.1 -12.06 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole584</name>
+            <pose>19.95 -17.01 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole585</name>
+            <pose>-19.6 -1.06 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole586</name>
+            <pose>-17.75 7.09 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole587</name>
+            <pose>-4.26 23.62 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole588</name>
+            <pose>14.29 3.27 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole589</name>
+            <pose>-18.06 22.01 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole590</name>
+            <pose>-23.75 17.77 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole591</name>
+            <pose>-11.19 22.43 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole592</name>
+            <pose>13.63 -21.38 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole593</name>
+            <pose>-24.08 24.86 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole594</name>
+            <pose>-19.41 -7.63 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole595</name>
+            <pose>13.57 -2.05 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole596</name>
+            <pose>-22.36 -13.88 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole597</name>
+            <pose>8.36 -22.15 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole598</name>
+            <pose>-22.16 21.86 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole599</name>
+            <pose>15.4 -14.99 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole600</name>
+            <pose>1.36 20.27 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole601</name>
+            <pose>-2.54 24.46 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole602</name>
+            <pose>-11.08 -23.23 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole603</name>
+            <pose>-11.81 -1.6 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole604</name>
+            <pose>-13.9 13.99 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole605</name>
+            <pose>0.31 0.12 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole606</name>
+            <pose>-6.75 -2.34 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole607</name>
+            <pose>3.49 3.95 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole608</name>
+            <pose>-22.35 -24.47 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole609</name>
+            <pose>6.85 -12.76 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole610</name>
+            <pose>13.88 15.01 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole611</name>
+            <pose>19.89 9.7 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole612</name>
+            <pose>-24.54 20.88 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole613</name>
+            <pose>15.39 -12.57 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole614</name>
+            <pose>-6.57 -22.51 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole615</name>
+            <pose>14.23 -3.51 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole616</name>
+            <pose>-9.51 24.01 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole617</name>
+            <pose>-18.05 11.81 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole618</name>
+            <pose>18.59 -14.22 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole619</name>
+            <pose>13.81 -20.32 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole620</name>
+            <pose>-5.06 -15.89 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole621</name>
+            <pose>2.03 18.45 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole622</name>
+            <pose>-19.37 15.89 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole623</name>
+            <pose>-8.77 1.29 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole624</name>
+            <pose>-15.49 6.61 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole625</name>
+            <pose>11.78 6.0 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole626</name>
+            <pose>-11.92 -1.29 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole627</name>
+            <pose>-4.32 2.46 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole628</name>
+            <pose>-24.67 -1.71 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole629</name>
+            <pose>16.18 -14.78 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole630</name>
+            <pose>-2.59 -14.0 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole631</name>
+            <pose>5.26 8.49 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole632</name>
+            <pose>12.95 17.27 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole633</name>
+            <pose>6.31 6.63 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole634</name>
+            <pose>-14.83 24.84 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole635</name>
+            <pose>-7.89 -23.66 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole636</name>
+            <pose>-20.41 16.7 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole637</name>
+            <pose>23.1 16.87 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole638</name>
+            <pose>-18.0 10.27 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole639</name>
+            <pose>1.01 11.4 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole640</name>
+            <pose>9.7 9.47 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole641</name>
+            <pose>-9.42 -22.68 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole642</name>
+            <pose>-20.51 22.48 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole643</name>
+            <pose>19.36 10.99 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole644</name>
+            <pose>-20.48 -2.34 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole645</name>
+            <pose>20.88 -3.21 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole646</name>
+            <pose>4.32 13.87 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole647</name>
+            <pose>-7.81 -2.6 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole648</name>
+            <pose>14.71 10.48 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole649</name>
+            <pose>24.3 -21.78 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole650</name>
+            <pose>12.55 11.02 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole651</name>
+            <pose>13.22 -3.21 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole652</name>
+            <pose>-17.75 -20.59 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole653</name>
+            <pose>12.75 -1.19 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole654</name>
+            <pose>5.96 -20.44 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole655</name>
+            <pose>-19.88 16.07 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole656</name>
+            <pose>-16.57 -7.23 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole657</name>
+            <pose>18.78 16.28 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole658</name>
+            <pose>-24.27 1.92 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole659</name>
+            <pose>-23.63 12.64 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole660</name>
+            <pose>-7.24 23.33 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole661</name>
+            <pose>-6.16 2.08 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole662</name>
+            <pose>15.66 -0.41 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole663</name>
+            <pose>15.99 -12.98 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole664</name>
+            <pose>20.66 18.5 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole665</name>
+            <pose>-2.15 23.1 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole666</name>
+            <pose>-3.28 -9.95 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole667</name>
+            <pose>10.49 11.13 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole668</name>
+            <pose>17.22 -17.39 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole669</name>
+            <pose>-4.09 -12.17 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole670</name>
+            <pose>3.78 -19.47 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole671</name>
+            <pose>8.24 19.8 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole672</name>
+            <pose>-7.38 -7.26 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole673</name>
+            <pose>20.64 7.29 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole674</name>
+            <pose>1.49 -23.59 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole675</name>
+            <pose>10.73 6.29 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole676</name>
+            <pose>11.74 -10.66 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole677</name>
+            <pose>-5.51 3.94 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole678</name>
+            <pose>19.7 8.92 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole679</name>
+            <pose>-3.54 12.61 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole680</name>
+            <pose>20.58 20.74 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole681</name>
+            <pose>-24.37 7.77 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole682</name>
+            <pose>21.06 -14.9 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole683</name>
+            <pose>-6.79 -13.95 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole684</name>
+            <pose>-0.99 4.89 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole685</name>
+            <pose>-1.42 -11.5 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole686</name>
+            <pose>-1.36 -9.43 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole687</name>
+            <pose>-6.67 15.24 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole688</name>
+            <pose>-22.42 -8.48 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole689</name>
+            <pose>-1.79 -12.18 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole690</name>
+            <pose>20.67 -10.14 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole691</name>
+            <pose>-10.54 -23.9 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole692</name>
+            <pose>-0.49 0.43 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole693</name>
+            <pose>-4.0 -1.39 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole694</name>
+            <pose>23.43 -21.39 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole695</name>
+            <pose>13.7 22.22 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole696</name>
+            <pose>-15.77 -2.87 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole697</name>
+            <pose>-16.83 0.07 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole698</name>
+            <pose>-21.46 -21.27 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole699</name>
+            <pose>7.47 -18.4 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole700</name>
+            <pose>-22.94 3.98 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole701</name>
+            <pose>11.68 -5.14 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole702</name>
+            <pose>-5.75 -23.41 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole703</name>
+            <pose>10.88 -13.58 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole704</name>
+            <pose>-0.7 -10.42 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole705</name>
+            <pose>-17.03 -12.11 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole706</name>
+            <pose>23.09 -4.61 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole707</name>
+            <pose>-11.95 0.42 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole708</name>
+            <pose>3.18 15.49 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole709</name>
+            <pose>-14.4 10.64 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole710</name>
+            <pose>-14.24 12.29 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole711</name>
+            <pose>4.39 1.07 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole712</name>
+            <pose>11.15 15.83 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole713</name>
+            <pose>-24.24 -18.03 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole714</name>
+            <pose>-1.98 -11.36 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole715</name>
+            <pose>-17.95 -11.7 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole716</name>
+            <pose>3.9 -3.58 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole717</name>
+            <pose>-14.51 -12.52 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole718</name>
+            <pose>6.75 -0.26 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole719</name>
+            <pose>8.68 -23.15 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole720</name>
+            <pose>9.58 19.51 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole721</name>
+            <pose>-12.78 -5.24 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole722</name>
+            <pose>1.56 -12.91 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole723</name>
+            <pose>-3.77 20.24 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole724</name>
+            <pose>0.97 1.71 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole725</name>
+            <pose>15.65 23.37 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole726</name>
+            <pose>18.27 13.39 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole727</name>
+            <pose>6.79 -14.14 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole728</name>
+            <pose>-20.55 19.29 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole729</name>
+            <pose>3.64 -9.58 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole730</name>
+            <pose>-18.69 -4.6 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole731</name>
+            <pose>21.26 -15.82 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole732</name>
+            <pose>11.33 22.12 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole733</name>
+            <pose>-24.28 15.99 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole734</name>
+            <pose>11.11 20.31 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole735</name>
+            <pose>-21.97 19.0 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole736</name>
+            <pose>-15.17 -13.58 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole737</name>
+            <pose>24.92 -9.84 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole738</name>
+            <pose>23.51 23.41 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole739</name>
+            <pose>-21.93 20.56 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole740</name>
+            <pose>0.99 -18.3 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole741</name>
+            <pose>19.51 7.08 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole742</name>
+            <pose>-0.12 13.01 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole743</name>
+            <pose>12.65 -23.06 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole744</name>
+            <pose>3.76 22.31 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole745</name>
+            <pose>-8.36 -10.52 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole746</name>
+            <pose>20.6 -19.31 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole747</name>
+            <pose>-21.71 21.42 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole748</name>
+            <pose>-10.49 -4.13 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole749</name>
+            <pose>-23.99 -7.13 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole750</name>
+            <pose>19.36 23.63 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole751</name>
+            <pose>-10.98 -1.66 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole752</name>
+            <pose>12.89 23.98 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole753</name>
+            <pose>-8.17 -23.96 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole754</name>
+            <pose>-18.36 1.14 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole755</name>
+            <pose>2.2 16.35 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole756</name>
+            <pose>19.76 20.69 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole757</name>
+            <pose>-2.69 -23.18 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole758</name>
+            <pose>6.17 -8.89 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole759</name>
+            <pose>-22.83 23.85 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole760</name>
+            <pose>-14.14 24.83 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole761</name>
+            <pose>-22.69 0.74 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole762</name>
+            <pose>23.2 8.76 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole763</name>
+            <pose>19.94 14.06 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole764</name>
+            <pose>-24.78 -8.88 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole765</name>
+            <pose>3.29 3.75 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole766</name>
+            <pose>4.75 -8.46 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole767</name>
+            <pose>-20.7 2.38 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole768</name>
+            <pose>7.01 5.4 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole769</name>
+            <pose>-13.25 -5.08 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole770</name>
+            <pose>23.12 -1.26 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole771</name>
+            <pose>10.38 -16.28 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole772</name>
+            <pose>17.24 -18.49 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole773</name>
+            <pose>-15.56 4.19 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole774</name>
+            <pose>-23.28 11.56 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole775</name>
+            <pose>-24.45 7.49 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole776</name>
+            <pose>5.59 1.64 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole777</name>
+            <pose>22.72 19.7 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole778</name>
+            <pose>-17.19 -12.42 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole779</name>
+            <pose>-22.74 4.51 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole780</name>
+            <pose>12.7 8.61 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole781</name>
+            <pose>24.47 -10.88 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole782</name>
+            <pose>7.21 24.86 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole783</name>
+            <pose>12.34 -15.71 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole784</name>
+            <pose>5.26 20.32 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole785</name>
+            <pose>16.61 16.57 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole786</name>
+            <pose>-20.14 23.55 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole787</name>
+            <pose>10.79 -19.5 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole788</name>
+            <pose>-16.28 -10.7 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole789</name>
+            <pose>-10.25 17.16 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole790</name>
+            <pose>-6.68 21.22 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole791</name>
+            <pose>17.59 -16.85 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole792</name>
+            <pose>13.99 -12.29 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole793</name>
+            <pose>8.77 -1.91 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole794</name>
+            <pose>-3.57 -17.32 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole795</name>
+            <pose>17.74 -1.93 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole796</name>
+            <pose>-22.79 10.18 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole797</name>
+            <pose>17.99 16.61 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole798</name>
+            <pose>1.61 -8.45 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole799</name>
+            <pose>-17.59 7.4 0 0 0 0</pose>
+        </include>
+        <include>
+            <uri>model://pole</uri>
+            <name>pole800</name>
+            <pose>-19.6 21.16 0 0 0 0</pose>
+        </include>
+
+    </world>
+</sdf>
