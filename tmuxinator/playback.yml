@@ -1,0 +1,48 @@
+# ~/.tmuxinator/playback.yml
+
+<%
+# Input parameters
+drones              = @settings["drones"]
+estimator_plugin    = @settings["estimator_plugin"]
+
+# Other parameters
+
+if estimator_plugin == "mocap_pose"
+    platform_config_file = "config/platform_config_mocap.yaml"
+elsif estimator_plugin == "raw_odometry"
+    platform_config_file = "config/platform_config_flowdeck.yaml"
+end
+
+config_path          = "config"
+
+%>
+attach: false
+root: ./
+name: playback
+startup_window: rosbag_playback
+windows:
+  - rosbag_playback:
+      layout: even-vertical
+      panes:
+        # - ros2 bag play rosbags/exploration_20240405_195752 -p -r 5.0 # 2 low
+        # - ros2 bag play rosbags/exploration_20240405_163751 -p -r 5.0 # 3 low
+        # - ros2 bag play rosbags/exploration_20240411_101108 -p -r 5.0 # 3 med
+        # - ros2 bag play rosbags/exploration_20240417_065805 -p -r 5.0 # 3 high
+        - ros2 bag play rosbags/exploration_20240409_143926 -p -r 5.0 # 5 low
+        # - ros2 bag play rosbags/exploration_20240409_025029 -p -r 5.0 # 7 low
+        - rviz2 -d assets/rviz/five_drone.rviz
+  - as2_viz:
+      panes:
+        - ros2 launch as2_visualization as2_visualization.launch.py
+            rviz:=false
+            paint_markers:=false
+            namespace:=drone0
+        - ros2 launch as2_visualization as2_visualization.launch.py
+            rviz:=false
+            paint_markers:=false
+            namespace:=drone1
+        - ros2 launch as2_visualization as2_visualization.launch.py
+            rviz:=false
+            paint_markers:=false
+            namespace:=drone2
+
