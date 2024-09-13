@@ -623,6 +623,29 @@ def plot_ts_error_bar():
         "high": high_experiments
     }
 
+    fig, ax1 = plt.subplots()
+    ax2 = ax1.twinx()
+
+    x = [1, 2, 3, 5, 7]
+    for key, value in mmm.items():
+        y, e = [], []
+        y2, e2 = [], []
+        for exp in value:
+            y.append(exp.stats.ts_mean)
+            e.append(exp.stats.ts_std)
+            y2.append(exp.stats.path_length_mean)
+            e2.append(exp.stats.path_length_std)
+
+        ax2.errorbar(x, y2, e2, marker='o', label=key, alpha=0.5, linestyle='--')
+        ax1.errorbar(x, y, e, marker='^', label=key)
+        # plt.title("Timestamps")
+        ax1.set_xlabel("Drones")
+        ax1.set_ylabel("Time (s)")
+        ax2.set_ylabel("Path Length (m)")
+        plt.legend()
+
+    plt.show()
+
     x = [1, 2, 3, 5, 7]
     for key, value in mmm.items():
         y = []
@@ -737,21 +760,32 @@ def print_extended_stats_low_env():
 
 
 if __name__ == "__main__":
+    import os
+    if not os.path.exists("rosbags"):
+        print("rosbags folder not found.")
+        exit()
+
     # FIVE DRONES LOW ENVIRONMENT
     # zenithal_view('rosbags/exploration_20240409_143926',
     #               'assets/worlds/low5.json')
 
     # THREE DRONES LOW ENVIRONMENT FINAL HEURISTIC
-    # zenithal_view("rosbags/exploration_20240405_160245",
-    #               "assets/worlds/low3.json")
+    zenithal_view("rosbags/exploration_20240405_160245",
+                  "assets/worlds/low3.json")
+    exp = Experiment("low_final_heur", ["rosbags/exploration_20240405_160245"])
+    print(exp.stats)
 
     # # THREE DRONES LOW ENVIRONMENT MAX DISTANCE
-    # zenithal_view("rosbags/exploration_20240405_100734",
-    #               "assets/worlds/low3.json")
+    zenithal_view("rosbags/exploration_20240405_100734",
+                  "assets/worlds/low3.json")
+    exp = Experiment("low_max_dist", ["rosbags/exploration_20240405_100734"])
+    print(exp.stats)
 
     # THREE DRONES LOW ENVIRONMENT NEAREST FRONTIER
-    # zenithal_view("rosbags/exploration_20240424_140241",
-    #               "assets/worlds/low3.json")
+    zenithal_view("rosbags/exploration_20240424_140241",
+                  "assets/worlds/low3.json")
+    exp = Experiment("low_near_front", ["rosbags/exploration_20240424_140241"])
+    print(exp.stats)
 
     # # THREE DRONE 60 OBS NEAREST FRONTIER
     # zenithal_view("rosbags/exploration_20240320_151339",
