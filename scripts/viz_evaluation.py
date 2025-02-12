@@ -69,13 +69,14 @@ class LogData:
                 log_data.poses[drone_id] = [(msg.point.x, msg.point.y)
                                             for msg in poses]
             elif topic == "/map_server/grid_map":
-                grid_map: GridMap = deserialize_msgs(msgs, GridMap)[-1]
+                msgs = deserialize_msgs(msgs, GridMap)
+                grid_map: GridMap = msgs[-1]
                 for layer in grid_map.layers:
                     # ROS_MSG: -1 unknown, 0 free, 100 occupied
                     idx = grid_map.layers.index(layer)
                     data = np.array(grid_map.data[idx].data, dtype=np.float64)
-                    data = data.reshape((int(grid_map.info.length_x/grid_map.info.resolution),
-                                         int(grid_map.info.length_y/grid_map.info.resolution)))
+                    data = data.reshape((int(grid_map.info.length_x / grid_map.info.resolution),
+                                         int(grid_map.info.length_y / grid_map.info.resolution)))
                     data = np.nan_to_num(data, nan=-1.0).astype(np.int8)
                     data = data.T
                     data = np.flip(data, axis=0)

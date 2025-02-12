@@ -40,7 +40,7 @@ class WorldFigure:
     """World matplotlib figure"""
 
     def __init__(self, name: str, plot_boundaries: bool = False) -> None:
-        self.fig: Figure = plt.figure(name)
+        self.fig: Figure = plt.figure(name, figsize=(6, 6))
         self.name = name
         side_length: float = 10.0
 
@@ -57,14 +57,14 @@ class WorldFigure:
                                     side_length, side_length],
                                 'k-')
 
-    def draw_drones(self, drones: dict[str, Pose2D], color: str = 'rD') -> None:
+    def draw_drones(self, drones: dict[str, Pose2D], color: str = 'r', marker: str = 'D') -> None:
         """Draw drones on plot"""
         drone_xs = [item[0] for item in drones.values()]
         drone_ys = [item[1] for item in drones.values()]
         labels = [item for item in drones.keys()]
         if len(labels) == 1:
             labels = labels[0]
-        self.main_plot.plot(drone_xs, drone_ys, color, label=labels)
+        self.main_plot.plot(drone_xs, drone_ys, color=color, marker=marker, label=labels)
 
     def draw_obstacles(self, obstacles: dict[str, Pose2D], color: str = 'o') -> None:
         """Draw obstacles on plot"""
@@ -91,13 +91,18 @@ class WorldFigure:
             for i in range(grid.shape[0]):
                 for j in range(grid.shape[1]):
                     if grid[i, j] != 128:
-                        x.append(i*info.resolution - info.length_x/2)
-                        y.append(j*info.resolution - info.length_y/2)
+                        x.append(i * info.resolution - info.length_x / 2)
+                        y.append(j * info.resolution - info.length_y / 2)
             self.main_plot.scatter(x, y, color=color, alpha=0.025)
 
     def show(self) -> None:
         """Show plot"""
         self.fig.savefig(f"/tmp/{self.name}.png")
+        # self.main_plot.get_legend().remove()
+        # self.main_plot.set_axis_off()
+        # self.main_plot.set_xlim(-25, 25)
+        # self.main_plot.set_ylim(-25, 25)
+        # self.main_plot.legend(loc='center')
         plt.show()
 
 

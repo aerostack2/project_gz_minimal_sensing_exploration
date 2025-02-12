@@ -424,7 +424,7 @@ COLORS = {
     '/drone3': ('y', '#ffff89'),
     '/drone4': ('m', '#eb89ff'),
     '/drone5': ('c', '#89ffea'),
-    '/drone6': ('k', '#cfcfcf'),
+    '/drone6': ('orchid', '#ffc0cb'),
 }
 
 
@@ -442,7 +442,7 @@ def zenithal_view(rosbag: str, json_filename: str):
     fig = WorldFigure("World")
     fig.draw_obstacles(poles, color='ko')
     for drone, pose, path in zip(drones.keys(), drones.values(), data.poses.values()):
-        fig.draw_drones({drone: pose}, COLORS['/' + drone][0] + 'D')
+        fig.draw_drones({drone: pose}, COLORS['/' + drone][0], 'D')
         fig.draw_paths({drone: path}, COLORS['/' + drone][0])
     fig.draw_grid_maps(data.grids, colors=[
                        COLORS[drone][1] for drone in data.grids.keys()])
